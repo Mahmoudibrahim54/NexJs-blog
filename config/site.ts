@@ -11,8 +11,8 @@ export interface SiteConfig {
 
 const siteConfig: SiteConfig = {
   siteName: "الشيخ اسامة عبد العظيم",
-  description: "الموقع الرسمي لفضيلة الشيخ اسامة عبد العظيم",
-  country: "الإسكندرية",
+  description: " الموقع الرسمي لفضيلة الشيخ اسامة عبد العظيم رحمه الله",
+  country: "الإسكندرية - جمهورية مصر العربية",
   socialLinks: {
     facebook: "",
     twitter: "",

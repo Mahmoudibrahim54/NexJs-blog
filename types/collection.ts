@@ -13,8 +13,9 @@ export interface Post {
 export interface Category {
   id: string;
   title: string;
-  slug?: string;
+  slug: string;
   description?: string;
+  color: string;
 }
 export interface Author {
   id: string;

@@ -1,0 +1,20 @@
+.islamicIcon {
+  background: #353738;
+  width: var(--icon-dim);
+  height: var(--icon-dim);
+  position: relative;
+  text-align: center;
+  transform: rotate(45deg);
+
+  opacity: 50;
+}
+.islamicIcon:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--icon-dim);
+  width: var(--icon-dim);
+  background: #353738;
+  transform: rotate(135deg);
+}

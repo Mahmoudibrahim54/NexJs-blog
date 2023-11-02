@@ -1,65 +1,85 @@
+import styles from "./bg-pattern.module.css";
+import icon from "../../styles/islamic-icon.module.css";
+
+import { BookOpen, ScrollText, Video } from "lucide-react";
 import Link from "next/link";
-import { PaddingContainer } from "../layout/padding-container";
-import { Video, ScrollText, BookOpen } from "lucide-react";
+import React from "react";
 
-const Navigation = () => {
+export default function Navigation() {
   return (
-    <div className="border-b sticky top-0 left-0 right-0 bg-blue-950 backdrop-blur-md w-screen">
-      <PaddingContainer>
-        <div className="py-5 flex-col text-white">
-          <h1>موقع الشيخ</h1>
-          <Link href="/" className="text-lg font-bold text-white">
-            اسامة عبد العظيم
-          </Link>
+    <div
+      className={`${styles.styleOne} sticky top-0 z-[999]  mt-0 w-screen border-b`}
+    >
+      <div className="absolute inset-0 z-10 bg-gradient-to-br from-white/95 via-white/70 to-white/30" />
+
+      <div className="absolute inset-0 z-10 bg-gradient-to-br from-black/95 via-black/70 to-black/30" />
+      <div className="relative z-20">
+        <div className="border-t bg-white bg-opacity-30 py-1 backdrop-blur-md  ">
+          <nav>
+            <ul className="flex items-center justify-around text-neutral-600 lg:mx-80">
+              <li>
+                <Link href="/records">
+                  <div className="flex flex-col items-center justify-center">
+                    <div
+                      className={`${icon.islamicIcon} my-3  hidden md:block`}
+                      style={{
+                        ["--icon-dim" as any]: "40px",
+                        ["--icon-color" as any]: "#3D4042",
+                      }}
+                    ></div>
+                    <div className="absolute top-5  hidden md:block">
+                      <Video size="30px" color="#898989" />
+                    </div>
+                    <div className="text-white">فتاوى مرئية ومسموعة</div>
+                  </div>
+                </Link>
+              </li>
+              <li>
+                <Link href="/articles">
+                  {" "}
+                  <div className=" flex flex-col items-center justify-center">
+                    <div
+                      className={`${`${icon.islamicIcon} my-3`} hidden md:block`}
+                      style={{
+                        ["--icon-dim" as any]: "40px",
+                        ["--icon-color" as any]: "#3D4042",
+                      }}
+                    >
+                      {" "}
+                    </div>
+                    <div className="absolute top-5  hidden md:block">
+                      <ScrollText size="30" color="#898989" />{" "}
+                    </div>
+                    <div className="text-white">الفتاوى والمقالات</div>
+                  </div>
+                </Link>
+              </li>
+              <li>
+                <Link href="/books">
+                  {" "}
+                  <div className="flex flex-col items-center justify-center ">
+                    <div
+                      className={`${`${icon.islamicIcon} my-3  hidden md:block`}`}
+                      style={{
+                        ["--icon-dim" as any]: "40px",
+                        ["--icon-color" as any]: "#3D4042",
+                      }}
+                    >
+                      {" "}
+                    </div>
+                    <div className="absolute top-5  hidden md:block">
+                      <BookOpen size="30" color="#898989" />{" "}
+                    </div>
+                    <div className="flex w-20 items-center justify-center pr-5 text-white">
+                      الكتب
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </div>
-      </PaddingContainer>
-
-      <div className="py-3 border-t  bg-white">
-        <nav>
-          <ul className="flex items-center justify-between text-neutral-600 px-8">
-            <li>
-              <Link href="/cities">
-                <div className="flex flex-col items-center justify-center">
-                  <div className=" bg-white shadow-md rounded-full mx-7 my-3 px-2">
-                    {" "}
-                    <Video size="35" />
-                  </div>
-
-                  <div>فتاوى مرئية ومسموعة</div>
-                </div>
-              </Link>
-            </li>
-            <li>
-              <Link href="/experiences">
-                {" "}
-                <div className="flex flex-col items-center justify-center">
-                  <div className=" bg-white shadow-md rounded-full px-2 my-3">
-                    {" "}
-                    <ScrollText size="35" />{" "}
-                  </div>
-                  <div>الفتاوى والمقالات</div>
-                </div>
-              </Link>
-            </li>
-            <li>
-              <Link href="/experiences">
-                {" "}
-                <div className="flex-col flex items-center justify-center">
-                  <div className=" bg-white shadow-md rounded-full  my-3 px-2 mr-5">
-                    {" "}
-                    <BookOpen size="30" />{" "}
-                  </div>
-                  <div className="pr-5 w-20 flex items-center justify-center">
-                    الكتب
-                  </div>
-                </div>
-              </Link>
-            </li>
-          </ul>
-        </nav>
       </div>
     </div>
   );
-};
-
-export default Navigation;
+}
