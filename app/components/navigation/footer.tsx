@@ -5,6 +5,7 @@ import siteConfig from "@/config/site";
 import { PaddingContainer } from "../layout/padding-container";
 import Link from "next/link";
 import { SocialLinks } from "../elements/social-links";
+import { useState } from "react";
 
 export const Footer = () => {
   return (

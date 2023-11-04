@@ -22,10 +22,6 @@ export default function PostContent({
         <div style={{ color: post.category.color }}>{post.category.title}</div>
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-neutral-200" />
-          <div>{`${post.author.first_name} ${post.author.last_name}`}</div>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full bg-neutral-200" />
           <div>{getReadingTime(post.body)}</div>
         </div>
         <div className="flex items-center gap-2">

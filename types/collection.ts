@@ -3,12 +3,14 @@ export interface Post {
   title: string;
   description: string;
   category: Category;
-  author: Author;
   slug: string;
-  image: string;
+  image?: string;
   body: string;
   date_created: string;
   date_updated: string;
+  file?: string;
+  type: "textOnly" | "videoOnly" | "textWithImage" | "textWithAudio";
+  isDummy?: boolean;
 }
 export interface Category {
   id: string;
@@ -16,9 +18,4 @@ export interface Category {
   slug: string;
   description?: string;
   color: string;
-}
-export interface Author {
-  id: string;
-  first_name: string;
-  last_name: string;
 }

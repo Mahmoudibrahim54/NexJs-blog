@@ -23,15 +23,24 @@ export default function PostCard({
       }`}
       href={`/post/${post.slug}`}
     >
-      <Image
-        className={`h-full max-h-[300px] w-full rounded-md object-cover object-center${
-          reverse ? "md:order-last" : ""
-        }`}
-        alt={post.title}
-        src={post.image}
-        width={600}
-        height={300}
-      />
+      {post.type === "textWithImage" && (
+        <Image
+          className={`h-full max-h-[300px] w-full rounded-md object-cover object-center${
+            reverse ? "md:order-last" : ""
+          }`}
+          alt={post.title}
+          src={`${
+            !post.isDummy
+              ? process.env.NEXT_PUBLIC_ASSETS_URL +
+                "/" +
+                post.image +
+                "?key=optimized"
+              : post.image
+          }`}
+          width={600}
+          height={300}
+        />
+      )}
       <PostContent post={post} />
     </Link>
   );

@@ -4,8 +4,29 @@ import PostCard from "./components/posts/post-card";
 import { DUMMY_POSTS } from "@/DUMMY_DATA";
 import PostList from "./components/posts/post-lists";
 import CTACard from "./components/elements/cta-card";
+import { notFound } from "next/navigation";
+import { client } from "./components/lib/directus";
 
-export default function Home() {
+export default async function Home() {
+  const getAllPosts = async () => {
+    try {
+      const posts = await client
+        .items("post")
+        .readByQuery({ fields: ["*", "category.id", "category.title"] });
+
+      return posts.data;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error Fetching Posts");
+    }
+  };
+  const posts = await getAllPosts();
+
+  if (!posts) {
+    notFound();
+  }
+  console.log(posts);
+
   return (
     <div>
       <PaddingContainer>
@@ -19,9 +40,9 @@ export default function Home() {
             />
             <div className="inline-block text-3xl ">اخترنا لك</div>
           </div>
-          <PostCard post={DUMMY_POSTS[0]} />
+          <PostCard post={posts[0]} />
           <PostList
-            posts={DUMMY_POSTS.filter((_post, index) => index > 0 && index < 3)}
+            posts={posts.filter((_post, index) => index > 0 && index < 3)}
           />
           <CTACard />
           <PostCard reverse post={DUMMY_POSTS[3]} />

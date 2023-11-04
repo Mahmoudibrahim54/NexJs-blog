@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className} style={{ direction: "rtl" }}>
         <Header />
         <Navigation />
-        <div className="py-7">{children}</div>
+        <div className="min-h-[calc(100vh-300px)] py-7 ">{children}</div>
         <Footer />
       </body>
     </html>

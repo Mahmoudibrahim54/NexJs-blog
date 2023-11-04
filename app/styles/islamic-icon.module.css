@@ -5,9 +5,8 @@
   position: relative;
   text-align: center;
   transform: rotate(45deg);
-
-  opacity: 50;
 }
+
 .islamicIcon:before {
   content: "";
   position: absolute;
