@@ -1,15 +1,14 @@
 import styles from "./bg-pattern.module.css";
-import icon from "../../styles/islamic-icon.module.css";
+import icon from "@/app/styles/islamic-icon.module.css";
 
 import siteConfig from "@/config/site";
 import { PaddingContainer } from "../layout/padding-container";
 import Link from "next/link";
 import { SocialLinks } from "../elements/social-links";
-import { useState } from "react";
 
 export const Footer = () => {
   return (
-    <div className={` ${styles.styleOne} relative  mt-5 border-t py-8`}>
+    <div className={` ${styles.styleOne} relative  mt-8 border-t py-8`}>
       <div className="absolute inset-0 z-10 bg-gradient-to-br from-white/95 via-white/70 to-white/30" />
 
       <div className="absolute inset-0 z-10 bg-gradient-to-br from-black/95 via-black/70 to-black/30" />

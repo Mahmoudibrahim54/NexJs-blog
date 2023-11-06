@@ -1,19 +1,50 @@
-import { DUMMY_POSTS } from "@/DUMMY_DATA";
-import CTACard from "@/app/components/elements/cta-card";
-import { SocialLinks } from "@/app/components/elements/social-links";
-import { PaddingContainer } from "@/app/components/layout/padding-container";
-import PostBody from "@/app/components/posts/post-body";
-import PostHero from "@/app/components/posts/post-hero";
+import CTACard from "@/components/elements/cta-card";
+import { SocialLinks } from "@/components/elements/social-links";
+import { PaddingContainer } from "@/components/layout/padding-container";
+import { client } from "@/utils/directus";
+import PostBody from "@/components/posts/post-body";
+import PostHero from "@/components/posts/post-hero";
 import { notFound } from "next/navigation";
 
 export const generateStaticParams = async () => {
-  return DUMMY_POSTS.map((post) => {
-    return { slug: post.slug };
-  });
+  try {
+    const posts = await client.items("post").readByQuery({
+      filter: {
+        status: { _eq: "published" },
+      },
+      fields: ["slug"],
+    });
+
+    const params = posts?.data?.map((post) => {
+      return { slug: post.slug as string };
+    });
+    return params || [];
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error fetching posts");
+  }
 };
 
-const Page = ({ params }: { params: { slug: string } }) => {
-  const post = DUMMY_POSTS.find((post) => post.slug == params.slug);
+const Page = async ({ params }: { params: { slug: string } }) => {
+  const getPostData = async () => {
+    try {
+      const post = await client.items("post").readByQuery({
+        filter: {
+          slug: {
+            _eq: params.slug,
+          },
+        },
+        fields: ["*", "category.id", "category.title", "category.color"],
+      });
+
+      return post?.data?.[0];
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error fetching post");
+    }
+  };
+
+  const post = await getPostData();
 
   if (!post) {
     notFound();
@@ -23,12 +54,11 @@ const Page = ({ params }: { params: { slug: string } }) => {
       {/* Container */}
       <div className="space-y-10">
         {/* Post Hero */}
-
         <PostHero post={post} />
-        {/* Post Body and Social Share*/}
-        <div className="flex flex-col gap-7 md:flex-row">
+        {/*        Post Body and Social Share */}
+        <div className="  flex flex-col gap-7 md:flex-row">
           <div className="relative">
-            <div className="sticky top-28 flex items-center gap-5 md:flex-col">
+            <div className="sticky top-12 flex items-center gap-5 md:top-28 md:flex-col">
               <div className="font-medium md:hidden">شارك هذا المحتوى</div>
               <SocialLinks
                 isShareURL
@@ -47,7 +77,6 @@ const Page = ({ params }: { params: { slug: string } }) => {
               />
             </div>
           </div>
-
           <PostBody body={post.body} />
         </div>
         {/* CTA Card */}

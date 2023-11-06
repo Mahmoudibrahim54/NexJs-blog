@@ -1,6 +1,8 @@
 import { Post } from "@/types/collection";
 import { ArrowLeft } from "lucide-react";
-import { getReadingTime, getRelativeDate } from "../lib/helpers";
+import { getReadingTime, getRelativeDate } from "@/utils/helpers";
+import { log } from "console";
+import { Category } from "../../types/collection";
 
 interface PostContentProps {
   post: Post;
@@ -11,12 +13,14 @@ export default function PostContent({
   post,
   isPostPage = false,
 }: PostContentProps) {
+  console.log(post?.category);
+
   return (
-    <div className="max-h[200px] h-full space-y-3">
+    <div className="max-h[200px] my-2 h-full space-y-3">
       {/*Tags */}
       <div
         className={`flex flex-wrap items-center gap-2  text-neutral-400 ${
-          isPostPage ? "text-sm" : "text-sm  @md:text-sm"
+          isPostPage ? "text-sm  md:text-xl" : "text-sm"
         }`}
       >
         <div style={{ color: post.category.color }}>{post.category.title}</div>
@@ -33,14 +37,14 @@ export default function PostContent({
       <h2
         className={`${
           isPostPage
-            ? "lg:4xl text-2xl font-bold md:text-3xl"
-            : " text-xl font-medium  @md:text-2xl  @lg:text-3xl"
+            ? "text-2xl font-bold md:text-3xl lg:text-4xl"
+            : " text-2xl font-medium  @md:text-3xl  @lg:text-4xl"
         }`}
       >
         {post.title}
       </h2>
       {/* Description */}
-      <p className="overflow-hidden text-base leading-snug text-neutral-600 @lg:text-lg">
+      <p className="overflow-hidden text-base leading-snug text-neutral-600 md:text-lg">
         {post.description}
       </p>
       {!isPostPage && (

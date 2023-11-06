@@ -16,7 +16,7 @@ export default function PostCard({
 }: PostProps) {
   return (
     <Link
-      className={`my-2 @container ${
+      className={`my-8 @container ${
         layout === "horizontal"
           ? "grid grid-cols-1 items-center gap-10 md:grid-cols-2"
           : "space-y-10"

@@ -1,11 +1,11 @@
-import styles from "./styles/islamic-icon.module.css";
-import { PaddingContainer } from "./components/layout/padding-container";
-import PostCard from "./components/posts/post-card";
+import styles from "@/app/styles/islamic-icon.module.css";
+import { PaddingContainer } from "@/components/layout/padding-container";
+import PostCard from "@/components/posts/post-card";
 import { DUMMY_POSTS } from "@/DUMMY_DATA";
-import PostList from "./components/posts/post-lists";
-import CTACard from "./components/elements/cta-card";
+import PostList from "@/components/posts/post-lists";
+import CTACard from "@/components/elements/cta-card";
 import { notFound } from "next/navigation";
-import { client } from "./components/lib/directus";
+import { client } from "@/utils/directus";
 
 export default async function Home() {
   const getAllPosts = async () => {
@@ -25,7 +25,6 @@ export default async function Home() {
   if (!posts) {
     notFound();
   }
-  console.log(posts);
 
   return (
     <div>

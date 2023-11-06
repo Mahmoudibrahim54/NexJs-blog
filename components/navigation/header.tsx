@@ -2,7 +2,6 @@ import styles from "./bg-pattern.module.css";
 
 import Link from "next/link";
 import { PaddingContainer } from "../layout/padding-container";
-import { Video, ScrollText, BookOpen } from "lucide-react";
 
 const Header = () => {
   return (
