@@ -1,5 +1,5 @@
 .islamicIcon {
-  background: #353738;
+  background: var(--primary-color);
   width: var(--icon-dim);
   height: var(--icon-dim);
   position: relative;

@@ -28,7 +28,7 @@ const NotFound = () => {
           </div>
 
           <Link
-            className="flex h-14 w-64 items-center justify-center gap-px rounded-md bg-[#353738] text-[#898989]"
+            className="bg-primary-color flex h-14 w-64 items-center justify-center gap-px rounded-md text-[#898989]"
             href="/"
           >
             <ChevronsRight size="35px" />

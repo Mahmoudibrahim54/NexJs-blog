@@ -8,6 +8,7 @@ import LargeScreenNav from "./pc-tablet-nav";
 export default function Navigation() {
   const [nav, setNav] = useState(false);
   const [isClicked, setIsClicked] = useState("notClicked");
+  const [subMenu, setSubMenu] = useState("None");
 
   return (
     <nav
@@ -19,12 +20,19 @@ export default function Navigation() {
       <div className="relative z-20">
         <div className="border-t bg-white bg-opacity-30 py-1 backdrop-blur-md  ">
           <MobileNave
-            isOpen={nav}
-            setOpen={setNav}
+            isMenu={nav}
+            setOpenMenu={setNav}
             clicked={isClicked}
             setClicked={setIsClicked}
+            isSubMenu={subMenu}
+            setOpenSubMenu={setSubMenu}
           />
-          <LargeScreenNav clicked={isClicked} setClicked={setIsClicked} />
+          <LargeScreenNav
+            clicked={isClicked}
+            setClicked={setIsClicked}
+            isSubMenu={subMenu}
+            setOpenSubMenu={setSubMenu}
+          />
         </div>
       </div>
     </nav>

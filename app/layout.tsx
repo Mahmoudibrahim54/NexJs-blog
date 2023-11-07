@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="ar">
       <body className={inter.className} style={{ direction: "rtl" }}>
         <Header />
         <Navigation />

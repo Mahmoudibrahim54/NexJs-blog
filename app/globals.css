@@ -14,3 +14,8 @@
     @apply mb-3 text-2xl leading-snug text-neutral-700;
   }
 }
+
+:root {
+  --primary-color: #353738;
+  --secondary-color: #193043;
+}

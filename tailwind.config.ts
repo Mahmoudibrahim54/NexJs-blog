@@ -6,7 +6,14 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {},
+  theme: {
+    extend: {
+      colors: {
+        "primary-color": "var(--primary-color)",
+        "secondary-color": "var(secondary-color)",
+      },
+    },
+  },
 
   plugins: [require("@tailwindcss/container-queries")],
 };

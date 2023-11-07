@@ -38,7 +38,7 @@ export default function PostContent({
         className={`${
           isPostPage
             ? "text-2xl font-bold md:text-3xl lg:text-4xl"
-            : " text-2xl font-medium  @md:text-3xl  @lg:text-4xl"
+            : " text-2xl font-bold   @md:text-3xl  @lg:text-4xl"
         }`}
       >
         {post.title}
