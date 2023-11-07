@@ -1,5 +1,5 @@
 import Link from "next/link";
-import globalIcon from "@/app/styles/islamic-icon.module.css";
+import globalIcon from "@/app/[lang]/styles//islamic-icon.module.css";
 import { links } from "@/json/nav-links";
 import React from "react";
 import { ChevronDown } from "lucide-react";

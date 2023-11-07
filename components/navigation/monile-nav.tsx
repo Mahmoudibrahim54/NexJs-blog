@@ -1,7 +1,7 @@
 import { AlignJustify, ChevronLeft, X } from "lucide-react";
 import { links } from "../../json/nav-links";
 import styles from "./bg-pattern.module.css";
-import icon from "@/app/styles/islamic-icon.module.css";
+import icon from "@/app/[lang]/styles//islamic-icon.module.css";
 
 import Link from "next/link";
 

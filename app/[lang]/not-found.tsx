@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "@/app/styles/islamic-icon.module.css";
+import styles from "@/app/[lang]/styles/islamic-icon.module.css";
 import { ChevronsRight } from "lucide-react";
 
 const NotFound = () => {
@@ -15,7 +15,9 @@ const NotFound = () => {
                 ["--icon-dim" as any]: "30px",
               }}
             />
-            <h3 className="z-30 text-2xl md:text-4xl"> المحتوى تحت التطوير</h3>
+            <h3 className="z-30 max-w-[200px] text-center text-2xl md:max-w-none md:text-4xl">
+              حدث خطأ ما، الرجاء المحاولة لاحقا
+            </h3>
             <div
               className={`${styles.islamicIcon} z-30 `}
               style={{
@@ -25,7 +27,7 @@ const NotFound = () => {
           </div>
 
           <Link
-            className="bg-primary-color flex h-14 w-64 items-center justify-center gap-px rounded-md text-[#898989]"
+            className="flex h-14 w-64 items-center justify-center gap-px rounded-md bg-[var(--primary-color)] text-[#898989]"
             href="/"
           >
             <ChevronsRight size="35px" />

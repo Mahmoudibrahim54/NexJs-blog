@@ -1,5 +1,5 @@
 import styles from "./bg-pattern.module.css";
-import icon from "@/app/styles/islamic-icon.module.css";
+import icon from "@/app/[lang]/styles//islamic-icon.module.css";
 
 import siteConfig from "@/config/site";
 import { PaddingContainer } from "../layout/padding-container";

@@ -1,4 +1,4 @@
-import styles from "@/app/styles/islamic-icon.module.css";
+import styles from "@/app/[lang]/styles//islamic-icon.module.css";
 import { PaddingContainer } from "@/components/layout/padding-container";
 import PostCard from "@/components/posts/post-card";
 import { DUMMY_POSTS } from "@/DUMMY_DATA";

@@ -1,4 +1,4 @@
-import styles from "@/app/styles/islamic-icon.module.css";
+import styles from "@/app/[lang]/styles//islamic-icon.module.css";
 import { Post } from "@/types/collection";
 import PostCard from "./post-card";
 
