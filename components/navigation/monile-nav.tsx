@@ -1,38 +1,40 @@
+"use client";
+
 import { AlignJustify, ChevronLeft, X } from "lucide-react";
 import { links } from "../../json/nav-links";
 import styles from "./bg-pattern.module.css";
 import icon from "@/app/[lang]/styles//islamic-icon.module.css";
 
 import Link from "next/link";
+import { useState } from "react";
+import { DictionarySchema } from "@/dictionaries/schema";
+import { Locale } from "@/utils/get-dictionary";
 
 const MobileNave = ({
-  setOpenMenu,
-  isMenu,
-  clicked,
-  setClicked,
-  isSubMenu,
-  setOpenSubMenu,
+  dictionary,
+  locale,
 }: {
-  isMenu: boolean;
-  setOpenMenu: React.Dispatch<React.SetStateAction<boolean>>;
-  clicked: string;
-  setClicked: React.Dispatch<React.SetStateAction<string>>;
-  isSubMenu: string;
-  setOpenSubMenu: React.Dispatch<React.SetStateAction<string>>;
+  dictionary: DictionarySchema;
+  locale: Locale;
 }) => {
+  const [nav, setNav] = useState(false);
+  const [isSubMenu, SetIsSubMenu] = useState("NONE");
+
   return (
     <div className=" flex h-full w-full flex-col items-center justify-between px-4 text-gray-50 md:hidden">
       <div className="flex h-full w-full items-center justify-between ">
-        <div className="text-3xl text-black">القائمة الرئيسية</div>
+        <div className="text-3xl text-black">
+          {dictionary.mainPage?.mainPage}
+        </div>
 
         <div className="z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-md bg-primary-color  text-[#898989] ">
-          {isMenu ? (
+          {nav ? (
             <X
               size={30}
               color="#898989"
               onClick={(e) => {
-                setOpenMenu(false);
-                setOpenSubMenu("NONE");
+                setNav(false);
+                SetIsSubMenu("NONE");
                 e.stopPropagation();
               }}
             />
@@ -41,14 +43,14 @@ const MobileNave = ({
               size={30}
               color="#898989"
               onClick={(e) => {
-                setOpenMenu(true);
+                setNav(true);
                 e.stopPropagation();
               }}
             />
           )}
         </div>
       </div>
-      {isMenu && (
+      {nav && (
         <div className={`${styles.styleOne}  w-screen border-b`}>
           <div className="absolute inset-0 top-14 z-10 bg-gradient-to-br from-white/95 via-white/70 to-white/30" />
 
@@ -66,9 +68,9 @@ const MobileNave = ({
                         className="z-20 flex  w-full items-center justify-around gap-7 px-5"
                         onClick={(e) => {
                           e.stopPropagation();
-                          setOpenMenu(!isMenu);
+                          setNav(!nav);
                         }}
-                        href={link}
+                        href={`${locale}/${link}`}
                       >
                         <div
                           className={`${icon.islamicIcon}`}
@@ -76,13 +78,15 @@ const MobileNave = ({
                             ["--icon-dim" as any]: "20px",
                           }}
                         />
-                        <div className=" w-46 flex-grow text-3xl">{title}</div>
+                        <div className=" w-46 flex-grow text-3xl">
+                          {dictionary.navigation.links[title]}
+                        </div>
                       </Link>
                     )}
                     <div
                       className="bordor- flex w-16 items-center justify-end border-s-4"
                       onClick={() => {
-                        setOpenSubMenu(link);
+                        SetIsSubMenu(link);
                       }}
                     >
                       {isSubMenu === "NONE" && (

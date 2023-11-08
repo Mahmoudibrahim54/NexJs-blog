@@ -1,19 +1,21 @@
 import { Post } from "@/types/collection";
 import { ArrowLeft } from "lucide-react";
 import { getReadingTime, getRelativeDate } from "@/utils/helpers";
-import { log } from "console";
-import { Category } from "../../types/collection";
+import { DictionarySchema } from "@/dictionaries/schema";
+import { Locale, getDictionary } from "@/utils/get-dictionary";
 
 interface PostContentProps {
   post: Post;
   isPostPage?: boolean;
+  locale: Locale;
 }
 
-export default function PostContent({
+export default async function PostContent({
   post,
   isPostPage = false,
+  locale,
 }: PostContentProps) {
-  console.log(post?.category);
+  const dictionary: DictionarySchema = await getDictionary(locale);
 
   return (
     <div className="max-h[200px] my-2 h-full space-y-3">
@@ -23,14 +25,16 @@ export default function PostContent({
           isPostPage ? "text-sm  md:text-xl" : "text-sm"
         }`}
       >
-        <div style={{ color: post.category.color }}>{post.category.title}</div>
-        <div className="flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full bg-neutral-200" />
-          <div>{getReadingTime(post.body)}</div>
+        <div style={{ color: post.category.color }}>
+          {dictionary.navigation.links[post.category.slug]}
         </div>
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-neutral-200" />
-          <div>{getRelativeDate(post.date_created)}</div>
+          {/* <div>{getReadingTime(post.body, locale)}</div> */}
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="h-2 w-2 rounded-full bg-neutral-200" />
+          <div>{getRelativeDate(post.date_created, locale)}</div>
         </div>
       </div>
       {/* Title */}
@@ -49,8 +53,7 @@ export default function PostContent({
       </p>
       {!isPostPage && (
         <div className="flex items-center gap-2 pt-3 text-xl">
-          تابع القراءة
-          <ArrowLeft size="14" />
+          {dictionary.buttons.readMore} <ArrowLeft size="14" />
         </div>
       )}
     </div>

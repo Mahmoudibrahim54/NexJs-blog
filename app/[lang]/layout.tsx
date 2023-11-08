@@ -2,9 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import Navigation from "@/components/navigation/navigation";
-import { Footer } from "@/components/navigation/footer";
 import Header from "@/components/navigation/header";
+import { Footer } from "@/components/navigation/footer";
+import Navigation from "@/components/navigation/navigation";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -14,16 +14,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params: { lang },
 }: {
   children: React.ReactNode;
+  params: { lang: "ar" | "en" };
 }) {
   return (
-    <html lang="ar">
-      <body className={inter.className} style={{ direction: "rtl" }}>
-        <Header />
-        <Navigation />
+    <html lang={lang}>
+      <body
+        className={inter.className}
+        style={lang === "ar" ? { direction: "rtl" } : { direction: "ltr" }}
+      >
+        <Header locale={lang} />
+        <Navigation locale={lang} />
         <div className="min-h-[calc(100vh-300px)] py-7 ">{children}</div>
-        <Footer />
+        <Footer locale={lang} />
       </body>
     </html>
   );

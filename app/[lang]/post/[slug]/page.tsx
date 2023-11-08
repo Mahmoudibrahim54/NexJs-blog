@@ -5,6 +5,7 @@ import { client } from "@/utils/directus";
 import PostBody from "@/components/posts/post-body";
 import PostHero from "@/components/posts/post-hero";
 import { notFound } from "next/navigation";
+import { Locale } from "@/utils/get-dictionary";
 
 export const generateStaticParams = async () => {
   try {
@@ -25,7 +26,7 @@ export const generateStaticParams = async () => {
   }
 };
 
-const Page = async ({ params }: { params: { slug: string } }) => {
+const Page = async ({ params }: { params: { slug: string; lang: Locale } }) => {
   const getPostData = async () => {
     try {
       const post = await client.items("post").readByQuery({
@@ -34,7 +35,13 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             _eq: params.slug,
           },
         },
-        fields: ["*", "category.id", "category.title", "category.color"],
+        fields: [
+          "*",
+          "category.id",
+          "category.title",
+          "category.color",
+          "category.slug",
+        ],
       });
 
       return post?.data?.[0];
@@ -54,7 +61,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
       {/* Container */}
       <div className="space-y-10">
         {/* Post Hero */}
-        <PostHero post={post} />
+        <PostHero locale={params.lang} post={post} />
         {/*        Post Body and Social Share */}
         <div className="  flex flex-col gap-7 md:flex-row">
           <div className="relative">
@@ -80,7 +87,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
           <PostBody body={post.body} />
         </div>
         {/* CTA Card */}
-        <CTACard />
+        <CTACard locale={params.lang} />
       </div>
     </PaddingContainer>
   );

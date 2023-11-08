@@ -1,16 +1,24 @@
 import styles from "@/app/[lang]/styles//islamic-icon.module.css";
 import { Post } from "@/types/collection";
 import PostCard from "./post-card";
+import { DictionarySchema } from "@/dictionaries/schema";
+import { Locale, getDictionary } from "@/utils/get-dictionary";
 
 interface PostListProps {
   posts: Post[];
   layout?: "vertical" | "horizontal";
+  locale: Locale;
+  category: string;
 }
 
-export default function PostList({
+export default async function PostList({
+  locale = "ar",
   posts,
   layout = "vertical",
+  category,
 }: PostListProps) {
+  const dictionary: DictionarySchema = await getDictionary(locale);
+
   return (
     <div className="flex flex-col  gap-5 py-5 ">
       <div className="flex w-full flex-row items-center gap-5">
@@ -20,11 +28,11 @@ export default function PostList({
             ["--icon-dim" as any]: "30px",
           }}
         />
-        <div className=" text-3xl">{posts[0]?.category.title}</div>
+        <div className=" text-3xl">{dictionary.navigation.links[category]}</div>
       </div>
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:auto-cols-fr lg:grid-flow-col">
         {posts.map((post) => (
-          <PostCard key={post.id} layout={layout} post={post} />
+          <PostCard key={post.id} layout={layout} post={post} locale={locale} />
         ))}
       </div>
     </div>

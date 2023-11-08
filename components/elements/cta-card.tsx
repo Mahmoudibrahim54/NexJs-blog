@@ -1,8 +1,12 @@
+import { DictionarySchema } from "@/dictionaries/schema";
 import { client } from "@/utils/directus";
+import { Locale, getDictionary } from "@/utils/get-dictionary";
 import { revalidateTag } from "next/cache";
 import Image from "next/image";
 
-export default async function CTACard() {
+export default async function CTACard({ locale = "ar" }: { locale?: Locale }) {
+  const dictionary: DictionarySchema = await getDictionary(locale);
+
   const formAction = async (formData: FormData) => {
     "use server";
 
@@ -24,8 +28,8 @@ export default async function CTACard() {
   )
     .then((res) => res.json())
     .then((res) => res.meta.total_count)
-    .catch((e) => {
-      console.log(e);
+    .catch((error) => {
+      console.log(error);
     });
 
   return (
@@ -37,14 +41,16 @@ export default async function CTACard() {
         className="object-cover object-center"
         alt="CTA Card Image"
         fill
-        src="https://images.unsplash.com/photo-1448906654166-444d494666b3?ixid=MnwzODU2NTF8MHwxfHNlYXJjaHwyNXx8bG9uZG9ufGVufDB8fHx8MTY3MDI3MzM3Ng&ixlib=rb-4.0.3"
+        src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/${dictionary.ctaCard.image}`}
       />
       {/* Content Container */}
       <div className="relative z-20">
-        <div className="font-lg font-medium">#اعرف_دينك</div>
-        <h3 className="mt-3 text-4xl font-semibold">اعرف دينك</h3>
+        <div className="font-lg font-medium">#{dictionary.ctaCard.title}</div>
+        <h3 className="mt-3 text-4xl font-semibold">
+          {dictionary.ctaCard.title}
+        </h3>
         <p className="mt-2 max-w-sm text-lg">
-          اعرف دينك - استقبل ايميل اسبوعي من فتاوى الشيخ أسامة عبد العظيم
+          {dictionary.ctaCard.description}
         </p>
         {/* form */}
         <form
@@ -56,19 +62,19 @@ export default async function CTACard() {
             type="email"
             name="email"
             className="w-full rounded-md bg-white/80 px-3 py-2 text-base outline-none placeholder:text-sm focus:ring md:w-auto"
-            placeholder="ادخل بريدك الالكتروني"
+            placeholder={dictionary.ctaCard.placeholder}
           />
           <button className="whitespace-nowrap rounded-md bg-neutral-900 px-3 py-2 text-neutral-200">
-            سجل الآن
+            {dictionary.ctaCard.button}
           </button>
         </form>
         {/* subscribers */}
         <div className="mt-5 text-neutral-700">
-          عدد المشتركين :
+          {dictionary.ctaCard.subscriberTagTextOne}{" "}
           <span className="mx-2 rounded-md bg-neutral-700 px-2 py-1 text-sm text-neutral-100">
             {subscribersCount}
           </span>
-          حتى الآن
+          {dictionary.ctaCard.subscriberTagTextTwo}{" "}
         </div>
       </div>
     </div>

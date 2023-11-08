@@ -1,20 +1,22 @@
+"use client";
+
 import Link from "next/link";
 import globalIcon from "@/app/[lang]/styles//islamic-icon.module.css";
 import { links } from "@/json/nav-links";
-import React from "react";
 import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { Navigation } from "@/dictionaries/schema";
+import { Locale } from "@/utils/get-dictionary";
 
 const LargeScreenNav = ({
-  clicked,
-  setClicked,
-  isSubMenu,
-  setOpenSubMenu,
+  dictionary,
+  locale,
 }: {
-  clicked: string;
-  setClicked: React.Dispatch<React.SetStateAction<string>>;
-  isSubMenu: string;
-  setOpenSubMenu: React.Dispatch<React.SetStateAction<string>>;
+  dictionary: Navigation;
+  locale: Locale;
 }) => {
+  const [isSubMenu, SetIsSubMenu] = useState("NONE");
+
   return (
     <div className="hidden  md:block">
       <ul className="flex  items-center justify-around text-neutral-600 lg:mx-80">
@@ -23,9 +25,9 @@ const LargeScreenNav = ({
             !mobileOnly && (
               <li key={id}>
                 <Link
-                  href={link}
-                  onMouseOver={() => setOpenSubMenu(link)}
-                  onMouseLeave={() => setOpenSubMenu("NONE")}
+                  href={`${locale}/${link}`}
+                  onMouseOver={() => SetIsSubMenu(link)}
+                  onMouseLeave={() => SetIsSubMenu("NONE")}
                 >
                   <div className=" flex  w-40 flex-col items-center justify-center">
                     <div
@@ -37,7 +39,9 @@ const LargeScreenNav = ({
 
                     <div className="absolute top-[21px]  block">{icon}</div>
                     <div className="flex items-center justify-between gap-2">
-                      <div className=" text-gray-200">{title} </div>
+                      <div className=" text-gray-200">
+                        {dictionary.links[title]}
+                      </div>
                     </div>
                   </div>
                   {isSubMenu === link && (

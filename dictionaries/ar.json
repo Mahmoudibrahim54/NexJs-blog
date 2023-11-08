@@ -1,0 +1,48 @@
+{
+  "header": {
+    "textOne": "موقع الشيخ",
+    "textTow": "أسامة عبد العظيم",
+
+    "changeLangButton": "English"
+  },
+
+  "mainPage": {
+    "mainPage": "الصفحة الرئيسية",
+    "featured": "اخترنا لك"
+  },
+
+  "navigation": {
+    "links": {
+      "mainMenu": "القائمة الرئيسية",
+      "subMenu": "القائمة الفرعية",
+      "articles": " فتاوى والمقالات",
+      "videos": "فتاوى مرئية",
+      "records": "فتاوى صوتية",
+      "books": "كتب",
+      "about": "عن الشيخ"
+    }
+  },
+
+  "buttons": { "readMore": "تابع القراءة" },
+
+  "ctaCard": {
+    "title": "اعرف دينك اكثر",
+    "description": " اعرف اكثر عن الاسلام وعن الاحكام الاسلامية من فتاوى الشيخ أسامة عبد العظيم عن طريق التسجيل لاستقبال بريد الكتروني اسبوعي ",
+    "button": "انضم",
+    "placeholder": "ادخل بريدك الالكتروني",
+    "subscriberTagTextOne": "انضم الى",
+    "subscriberTagTextTwo": "مشارك",
+    "image": "b80d7d52-23f9-4f9e-992b-7fb549650ecb.webp"
+  },
+
+  "footer": {
+    "titleOne": "موقع فضيلة الشيخ",
+    "titleTwo": "اسامة عبد العظيم رحمه الله",
+    "description": "الموقع الرسمي لفضيلة الشيخ اسامة عبد العظيم رحمه الله",
+    "socialMedia": "مواقع التواصل الاجتماعي",
+    "rightsText": "جميع الحقوق محفوظة",
+    "creatorText": "تم تطوير الموقع من خلال",
+    "country": "البلد",
+    "location": "جمهورية مصر العربية"
+  }
+}

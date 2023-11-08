@@ -1,15 +1,18 @@
 import { Post } from "@/types/collection";
 import PostContent from "./post-content";
 import Image from "next/image";
+import { Locale } from "@/utils/get-dictionary";
+import { Category } from "../../types/collection";
 
 interface PostHeroProps {
   post: Post;
+  locale: Locale;
 }
 
-const PostHero = ({ post }: PostHeroProps) => {
+const PostHero = ({ post, locale }: PostHeroProps) => {
   return (
     <>
-      <PostContent post={post} isPostPage />
+      <PostContent locale={locale} post={post} isPostPage />
       {post.type === "textWithImage" && (
         <Image
           className="my-3 h-[300] rounded-md object-cover object-center md:h-[500]"

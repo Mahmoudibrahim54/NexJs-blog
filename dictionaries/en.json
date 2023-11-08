@@ -1,0 +1,47 @@
+{
+  "header": {
+    "textOne": "Website Of ",
+    "textTow": "sheikh Osama AbdulAzim",
+    "changeLangButton": "العربية"
+  },
+
+  "mainPage": {
+    "mainPage": "Main Page",
+    "featured": "Featured"
+  },
+
+  "navigation": {
+    "links": {
+      "mainMenu": "Main Menu",
+      "subMenu": "Sub Menu",
+      "articles": "Fatwa Articles",
+      "videos": "Video Fatwa",
+      "records": "Audio Fatwa",
+      "books": "Books",
+      "about": "About Al sheikh"
+    }
+  },
+
+  "buttons": { "readMore": "Read More" },
+
+  "ctaCard": {
+    "title": "Know Allah's Deen",
+    "description": "Know More About Allah's Deen By Signing Up to Receive a Weekly Email from Sheikh Osama AbdulAzim's Website ",
+    "button": "Join",
+    "placeholder": "Write Your Email",
+    "subscriberTagTextOne": "Join",
+    "subscriberTagTextTwo": "Subscriber",
+    "image": "c7f312a2-cb81-4879-955f-8b6254cb9959.webp"
+  },
+
+  "footer": {
+    "titleOne": "Website of",
+    "titleTwo": "Sheikh Osama AbdulAzim",
+    "description": "The Official Website for Sheikh Osama AbdulAzim May Allah have Mercy on Him",
+    "socialMedia": "ٍSocial Media",
+    "rightsText": "All rights reserved | Copyright",
+    "creatorText": "Developed By",
+    "country": "Country",
+    "location": "Arab Republic of Egypt"
+  }
+}

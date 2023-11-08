@@ -2,17 +2,20 @@ import { Post } from "@/types/collection";
 import Image from "next/image";
 import Link from "next/link";
 import PostContent from "./post-content";
+import { Locale } from "@/utils/get-dictionary";
 
 interface PostProps {
   post: Post;
   layout?: "vertical" | "horizontal";
   reverse?: boolean;
+  locale: Locale;
 }
 
 export default function PostCard({
   post,
   layout = "horizontal",
   reverse = false,
+  locale = "ar",
 }: PostProps) {
   return (
     <Link
@@ -41,7 +44,7 @@ export default function PostCard({
           height={300}
         />
       )}
-      <PostContent post={post} />
+      <PostContent post={post} locale={locale} />
     </Link>
   );
 }

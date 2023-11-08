@@ -6,15 +6,46 @@ import PostList from "@/components/posts/post-lists";
 import CTACard from "@/components/elements/cta-card";
 import { notFound } from "next/navigation";
 import { client } from "@/utils/directus";
+import { Locale, getDictionary } from "@/utils/get-dictionary";
 
-export default async function Home() {
+export default async function Home({ params }: { params: { lang: Locale } }) {
+  const locale = params.lang;
+
+  const dictionary = getDictionary(locale);
+
   const getAllPosts = async () => {
     try {
-      const posts = await client
-        .items("post")
-        .readByQuery({ fields: ["*", "category.id", "category.title"] });
+      const posts = await client.items("post").readByQuery({
+        fields: [
+          "*",
+          "category.*",
+          "translations.*",
+          "category.translations.*",
+        ],
+        filter: {
+          translations: {
+            languages_code: "en-US",
+          },
+        },
+      });
+      console.log(posts?.data?.[0]);
 
-      return posts.data;
+      if (locale === "ar") return posts.data;
+      else {
+        const localizedPosts = posts.data?.map((post) => {
+          return {
+            ...post,
+            title: post?.translations?.[0]?.title,
+            description: post?.translations?.[0]?.description,
+            body: post?.translations?.[0]?.body,
+            category: {
+              ...post?.category,
+              title: post?.category.translations?.[0]?.title,
+            },
+          };
+        });
+        return localizedPosts;
+      }
     } catch (error) {
       console.log(error);
       throw new Error("Error Fetching Posts");
@@ -36,16 +67,22 @@ export default async function Home() {
               ["--icon-dim" as any]: "30px",
             }}
           />
-          <div className="inline-block text-3xl ">اخترنا لك</div>
+          <div className="inline-block text-3xl ">
+            {(await dictionary).mainPage.featured}
+          </div>
         </div>
-        <PostCard post={posts[0]} />
+        <PostCard locale={locale} post={posts[0]} />
         <PostList
+          locale={locale}
+          category={posts[1]?.category?.slug}
           posts={posts.filter((_post, index) => index > 0 && index < 3)}
         />
-        <CTACard />
-        <PostCard reverse post={DUMMY_POSTS[3]} />
+        <CTACard locale={locale} />
+        <PostCard locale={locale} reverse post={posts[3]} />
         <PostList
-          posts={DUMMY_POSTS.filter((_post, index) => index > 3 && index < 6)}
+          locale={locale}
+          category={posts[4]?.category?.slug}
+          posts={posts.filter((_post, index) => index > 3 && index < 6)}
         />
       </main>
     </PaddingContainer>

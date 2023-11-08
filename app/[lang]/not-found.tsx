@@ -25,14 +25,6 @@ const NotFound = () => {
               }}
             />
           </div>
-
-          <Link
-            className="flex h-14 w-64 items-center justify-center gap-px rounded-md bg-[var(--primary-color)] text-[#898989]"
-            href="/"
-          >
-            <ChevronsRight size="35px" />
-            <h3 className="text-xl md:text-2xl"> العودة للصفحة الرئيسية</h3>
-          </Link>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import PostList from "@/components/posts/post-lists";
 import { client } from "@/utils/directus";
 import { Post } from "@/types/collection";
 import { notFound } from "next/navigation";
+import { Locale } from "@/utils/get-dictionary";
 
 export const generateStaticParams = async () => {
   try {
@@ -26,7 +27,11 @@ export const generateStaticParams = async () => {
   }
 };
 
-const Page = async ({ params }: { params: { category: string } }) => {
+const Page = async ({
+  params,
+}: {
+  params: { category: string; lang: Locale };
+}) => {
   const getCategoryData = async () => {
     try {
       const category = await client.items("category").readByQuery({
@@ -35,7 +40,13 @@ const Page = async ({ params }: { params: { category: string } }) => {
             _eq: params.category,
           },
         },
-        fields: ["*", "posts.*", "posts.category.id", "posts.category.title"],
+        fields: [
+          "*",
+          "posts.*",
+          "posts.category.id",
+          "posts.category.title",
+          "post.category.slug",
+        ],
       });
       return category?.data?.[0];
     } catch (error) {
@@ -61,7 +72,11 @@ const Page = async ({ params }: { params: { category: string } }) => {
 
   return (
     <PaddingContainer>
-      <PostList posts={typeCorrectedCategory.posts} />
+      <PostList
+        locale={params.lang}
+        posts={typeCorrectedCategory.posts}
+        category={params.category}
+      />
     </PaddingContainer>
   );
 };

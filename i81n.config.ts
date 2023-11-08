@@ -1,9 +1,9 @@
-interface I18Config {
+interface I18nConfig {
   defaultLocale: string;
   locales: string[];
 }
 
-export const i18: I18Config = {
+export const i18n: I18nConfig = {
   defaultLocale: "ar",
   locales: ["ar", "en"],
 };

@@ -13,38 +13,38 @@ export const links: LinkType[] = [
   {
     id: 1,
     link: "/",
-    title: "الصفحة الرئيسية",
+    title: "mainPage",
     mobileOnly: true,
   },
   {
     id: 2,
     link: "/articles",
-    title: "الفتاوى والمقالات",
+    title: "articles",
     icon: <ScrollText size="30" color="#898989" />,
   },
   {
     id: 3,
     link: "/video",
-    title: "فتاوى مرئية",
+    title: "videos",
     icon: <Video size="30px" color="#898989" />,
   },
   {
     id: 4,
-    link: "audio",
-    title: "فتاوى مسموعة",
+    link: "records",
+    title: "records",
     icon: <CassetteTape size="30px" color="#898989" />,
   },
   {
     id: 5,
     link: "books",
-    title: "الكتب",
+    title: "books",
     icon: <BookOpen size="30" color="#898989" />,
   },
 
   {
     id: 6,
     link: "/about",
-    title: "عن الشيخ",
+    title: "about",
     icon: <User2 size="30" color="#898989" />,
   },
 ];
