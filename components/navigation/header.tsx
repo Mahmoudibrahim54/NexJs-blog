@@ -1,14 +1,13 @@
 import styles from "./bg-pattern.module.css";
 
 import Link from "next/link";
-import { DictionarySchema } from "@/dictionaries/schema";
 import { Locale, getDictionary } from "@/utils/get-dictionary";
-import { ArrowLeftRight } from "lucide-react";
+import { DictionarySchema } from "@/types/dictionary";
+import LanguageSelector from "./language-selector";
 
 const Header = async ({ locale }: { locale: Locale }) => {
   const dictionary: DictionarySchema = await getDictionary(locale);
 
-  console.log(dictionary);
   return (
     <div
       className={`${styles.styleOne} relative z-[999] mb-0 w-screen border-b `}
@@ -39,13 +38,10 @@ const Header = async ({ locale }: { locale: Locale }) => {
             </Link>
           </div>
           <div>
-            <button
-              type="button"
-              className="flex h-10 w-28 items-center justify-around rounded-md bg-[#898989] text-primary-color"
-            >
-              <ArrowLeftRight />
-              {dictionary.header.changeLangButton}
-            </button>
+            <LanguageSelector
+              languageText={dictionary.header.changeLangButton}
+              locale={locale}
+            />
           </div>
         </div>
       </div>

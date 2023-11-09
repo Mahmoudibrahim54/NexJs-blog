@@ -5,8 +5,8 @@ import globalIcon from "@/app/[lang]/styles//islamic-icon.module.css";
 import { links } from "@/json/nav-links";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { Navigation } from "@/dictionaries/schema";
 import { Locale } from "@/utils/get-dictionary";
+import { Navigation } from "@/types/dictionary";
 
 const LargeScreenNav = ({
   dictionary,
@@ -18,14 +18,14 @@ const LargeScreenNav = ({
   const [isSubMenu, SetIsSubMenu] = useState("NONE");
 
   return (
-    <div className="hidden  md:block">
-      <ul className="flex  items-center justify-around text-neutral-600 lg:mx-80">
+    <div className="hidden  md:block ">
+      <ul className="  flex items-center justify-around text-neutral-600 lg:mx-80">
         {links.map(({ id, link, title, icon, mobileOnly }) => {
           return (
             !mobileOnly && (
               <li key={id}>
                 <Link
-                  href={`${locale}/${link}`}
+                  href={`${link}` || "/"}
                   onMouseOver={() => SetIsSubMenu(link)}
                   onMouseLeave={() => SetIsSubMenu("NONE")}
                 >
@@ -44,7 +44,7 @@ const LargeScreenNav = ({
                       </div>
                     </div>
                   </div>
-                  {isSubMenu === link && (
+                  {/* {isSubMenu === link && (
                     <div
                       className="items-top absolute flex h-[300px] w-40   justify-center rounded-b-md bg-primary-color"
                       onClick={() => {}}
@@ -52,10 +52,10 @@ const LargeScreenNav = ({
                       <ChevronDown
                         strokeWidth="3px"
                         size="20px"
-                        color="#898989"
+                        color="var(--button-primary-color)"
                       />
                     </div>
-                  )}
+                  )} */}
                 </Link>
               </li>
             )

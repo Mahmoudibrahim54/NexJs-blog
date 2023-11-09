@@ -1,7 +1,5 @@
-import styles from "@/app/[lang]/styles//islamic-icon.module.css";
 import { PaddingContainer } from "@/components/layout/padding-container";
 import PostCard from "@/components/posts/post-card";
-import { DUMMY_POSTS } from "@/DUMMY_DATA";
 import PostList from "@/components/posts/post-lists";
 import CTACard from "@/components/elements/cta-card";
 import { notFound } from "next/navigation";
@@ -13,77 +11,90 @@ export default async function Home({ params }: { params: { lang: Locale } }) {
 
   const dictionary = getDictionary(locale);
 
-  const getAllPosts = async () => {
+  const getCategoryData = async () => {
     try {
-      const posts = await client.items("post").readByQuery({
+      const category = await client.items("category").readByQuery({
         fields: [
           "*",
-          "category.*",
+          "posts.*",
+          "posts.category.*",
           "translations.*",
-          "category.translations.*",
+          "posts.translations.*",
         ],
-        filter: {
-          translations: {
-            languages_code: "en-US",
-          },
-        },
       });
-      console.log(posts?.data?.[0]);
 
-      if (locale === "ar") return posts.data;
+      if (locale === "ar") return category?.data;
       else {
-        const localizedPosts = posts.data?.map((post) => {
+        const fetchedCategories = category.data;
+
+        const localizedData = fetchedCategories?.map((category) => {
           return {
-            ...post,
-            title: post?.translations?.[0]?.title,
-            description: post?.translations?.[0]?.description,
-            body: post?.translations?.[0]?.body,
-            category: {
-              ...post?.category,
-              title: post?.category.translations?.[0]?.title,
-            },
+            ...category,
+            title: category?.translations[0].title,
+            description: category?.translations[0].description,
+            posts: category?.posts?.map((post: any) => {
+              return {
+                ...post,
+                title: post.translations[0].title,
+                description: post.translations[0].description,
+                body: post.translations[0].body,
+                category: {
+                  ...post.category,
+                  title: post.category.translations[0].title,
+                  description: post.category.translations[0]?.description,
+                },
+              };
+            }),
           };
         });
-        return localizedPosts;
+
+        return localizedData;
       }
     } catch (error) {
       console.log(error);
-      throw new Error("Error Fetching Posts");
+      throw new Error("Error fetching data");
     }
   };
-  const posts = await getAllPosts();
 
-  if (!posts) {
+  const categoriesPosts = await getCategoryData();
+  console.log(categoriesPosts);
+
+  if (categoriesPosts) {
     notFound();
   }
-
+  const featuredPosts = (categoriesPosts as any)?.map(
+    ({ posts }: { posts: any }) => {
+      return posts?.filter((post: any) => post.featured);
+    },
+  );
   return (
     <PaddingContainer>
       <main>
-        <div className="my-5 flex w-full flex-row items-center justify-start gap-5">
-          <div
-            className={`${styles.islamicIcon} `}
-            style={{
-              ["--icon-dim" as any]: "30px",
-            }}
-          />
-          <div className="inline-block text-3xl ">
-            {(await dictionary).mainPage.featured}
+        {featuredPosts?.length > 0 && (
+          <div>
+            <PostList
+              locale={locale}
+              category={"featured"}
+              posts={featuredPosts}
+            />
+
+            <CTACard locale={locale} />
           </div>
-        </div>
-        <PostCard locale={locale} post={posts[0]} />
-        <PostList
-          locale={locale}
-          category={posts[1]?.category?.slug}
-          posts={posts.filter((_post, index) => index > 0 && index < 3)}
-        />
-        <CTACard locale={locale} />
-        <PostCard locale={locale} reverse post={posts[3]} />
-        <PostList
-          locale={locale}
-          category={posts[4]?.category?.slug}
-          posts={posts.filter((_post, index) => index > 3 && index < 6)}
-        />
+        )}
+        {(categoriesPosts as any)?.map?.((category: any) => {
+          if (category?.posts?.length > 0) {
+            return (
+              <div key={category.id}>
+                <PostCard locale={locale} post={category.posts[0]} />
+                <PostList
+                  locale={locale}
+                  category={category?.slug}
+                  posts={category.posts}
+                />
+              </div>
+            );
+          }
+        })}
       </main>
     </PaddingContainer>
   );

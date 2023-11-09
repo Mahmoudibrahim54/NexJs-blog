@@ -7,8 +7,8 @@ import icon from "@/app/[lang]/styles//islamic-icon.module.css";
 
 import Link from "next/link";
 import { useState } from "react";
-import { DictionarySchema } from "@/dictionaries/schema";
 import { Locale } from "@/utils/get-dictionary";
+import { DictionarySchema } from "@/types/dictionary";
 
 const MobileNave = ({
   dictionary,
@@ -27,11 +27,11 @@ const MobileNave = ({
           {dictionary.mainPage?.mainPage}
         </div>
 
-        <div className="z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-md bg-primary-color  text-[#898989] ">
+        <div className="z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-md bg-primary-color  text-[var(--button-primary-color)] ">
           {nav ? (
             <X
               size={30}
-              color="#898989"
+              color="var(--button-primary-color)"
               onClick={(e) => {
                 setNav(false);
                 SetIsSubMenu("NONE");
@@ -41,7 +41,7 @@ const MobileNave = ({
           ) : (
             <AlignJustify
               size={30}
-              color="#898989"
+              color="var(--button-primary-color)"
               onClick={(e) => {
                 setNav(true);
                 e.stopPropagation();
@@ -61,7 +61,7 @@ const MobileNave = ({
                 {links.map(({ id, link, title }) => (
                   <li
                     key={id}
-                    className="flex w-screen items-center justify-start border-b-2  border-[var(--primary-color)] py-11 text-black"
+                    className="flex w-screen items-center justify-start border-b-2  border-primary-color py-11 text-black"
                   >
                     {isSubMenu === "NONE" && (
                       <Link
@@ -70,7 +70,7 @@ const MobileNave = ({
                           e.stopPropagation();
                           setNav(!nav);
                         }}
-                        href={`${locale}/${link}`}
+                        href={`${locale}/${link}` || "/"}
                       >
                         <div
                           className={`${icon.islamicIcon}`}

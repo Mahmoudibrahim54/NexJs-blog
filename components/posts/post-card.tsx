@@ -15,16 +15,16 @@ export default function PostCard({
   post,
   layout = "horizontal",
   reverse = false,
-  locale = "ar",
+  locale,
 }: PostProps) {
   return (
     <Link
       className={`my-8 @container ${
         layout === "horizontal"
-          ? "grid grid-cols-1 items-center gap-10 md:grid-cols-2"
+          ? "lg:grid-col-3 grid grid-cols-1 items-center gap-10 md:grid-cols-2"
           : "space-y-10"
       }`}
-      href={`/post/${post.slug}`}
+      href={`/post/${post.slug}` || "/"}
     >
       {post.type === "textWithImage" && (
         <Image

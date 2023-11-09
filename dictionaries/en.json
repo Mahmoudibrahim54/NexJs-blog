@@ -6,8 +6,7 @@
   },
 
   "mainPage": {
-    "mainPage": "Main Page",
-    "featured": "Featured"
+    "mainPage": "Main Page"
   },
 
   "navigation": {
@@ -18,7 +17,8 @@
       "videos": "Video Fatwa",
       "records": "Audio Fatwa",
       "books": "Books",
-      "about": "About Al sheikh"
+      "about": "About Al sheikh",
+      "featured": "Featured"
     }
   },
 

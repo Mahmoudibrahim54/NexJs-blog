@@ -8,24 +8,44 @@ import { notFound } from "next/navigation";
 import { Locale } from "@/utils/get-dictionary";
 
 export const generateStaticParams = async () => {
+  /* return DUMMY_POSTS.map((post) => {
+    return {
+      slug: post.slug,
+    };
+  }); */
   try {
     const posts = await client.items("post").readByQuery({
       filter: {
-        status: { _eq: "published" },
+        status: {
+          _eq: "published",
+        },
       },
       fields: ["slug"],
     });
 
     const params = posts?.data?.map((post) => {
-      return { slug: post.slug as string };
+      return {
+        slug: post.slug as string,
+        lang: "ar",
+      };
     });
-    return params || [];
+
+    const localizedParams = posts?.data?.map((post) => {
+      return {
+        slug: post.slug as string,
+        lang: "en",
+      };
+    });
+
+    // Concat Localized and Regular Params
+    const allParams = params?.concat(localizedParams ?? []);
+
+    return allParams || [];
   } catch (error) {
     console.log(error);
     throw new Error("Error fetching posts");
   }
 };
-
 const Page = async ({ params }: { params: { slug: string; lang: Locale } }) => {
   const getPostData = async () => {
     try {
@@ -37,14 +57,29 @@ const Page = async ({ params }: { params: { slug: string; lang: Locale } }) => {
         },
         fields: [
           "*",
-          "category.id",
-          "category.title",
-          "category.color",
-          "category.slug",
+          "category.*",
+          "translations.*",
+          "category.translations.*",
         ],
       });
 
-      return post?.data?.[0];
+      if (params.lang === "ar") return post.data?.[0];
+      else {
+        const postData = post.data?.[0];
+        const localizedPosts = {
+          ...postData,
+          title: postData?.translations?.[0]?.title,
+          description: postData?.translations?.[0]?.description,
+          body: postData?.translations?.[0]?.body,
+          category: {
+            ...postData?.category,
+            title: postData?.category?.translations?.[0]?.title,
+            description: postData?.category?.translations?.[0]?.description,
+          },
+        };
+
+        return localizedPosts;
+      }
     } catch (error) {
       console.log(error);
       throw new Error("Error fetching post");

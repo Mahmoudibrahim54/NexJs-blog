@@ -24,7 +24,7 @@ export const SocialLinks = ({
     }
   };
   return (
-    <Link href={link}>
+    <Link href={link || "/"}>
       <div
         className={`${
           isShareURL

@@ -7,8 +7,7 @@
   },
 
   "mainPage": {
-    "mainPage": "الصفحة الرئيسية",
-    "featured": "اخترنا لك"
+    "mainPage": "الصفحة الرئيسية"
   },
 
   "navigation": {
@@ -19,7 +18,8 @@
       "videos": "فتاوى مرئية",
       "records": "فتاوى صوتية",
       "books": "كتب",
-      "about": "عن الشيخ"
+      "about": "عن الشيخ",
+      "featured": "اخترنا لك"
     }
   },
 

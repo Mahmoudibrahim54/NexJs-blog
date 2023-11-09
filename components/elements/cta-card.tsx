@@ -1,4 +1,4 @@
-import { DictionarySchema } from "@/dictionaries/schema";
+import { DictionarySchema } from "@/types/dictionary";
 import { client } from "@/utils/directus";
 import { Locale, getDictionary } from "@/utils/get-dictionary";
 import { revalidateTag } from "next/cache";
@@ -64,7 +64,7 @@ export default async function CTACard({ locale = "ar" }: { locale?: Locale }) {
             className="w-full rounded-md bg-white/80 px-3 py-2 text-base outline-none placeholder:text-sm focus:ring md:w-auto"
             placeholder={dictionary.ctaCard.placeholder}
           />
-          <button className="whitespace-nowrap rounded-md bg-neutral-900 px-3 py-2 text-neutral-200">
+          <button className="whitespace-nowrap rounded-md bg-primary-color px-3 py-2 text-neutral-200">
             {dictionary.ctaCard.button}
           </button>
         </form>

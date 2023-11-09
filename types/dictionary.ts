@@ -40,7 +40,6 @@ export interface Header {
 
 export interface MainPage {
   mainPage: string;
-  featured: string;
 }
 
 export interface Navigation {
@@ -57,4 +56,5 @@ export interface Links {
   records: string;
   books: string;
   about: string;
+  featured: string;
 }

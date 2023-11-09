@@ -1,12 +1,11 @@
-import { DictionarySchema } from "@/dictionaries/schema";
 import { Locale, getDictionary } from "@/utils/get-dictionary";
 import styles from "./bg-pattern.module.css";
-import MobileNave from "./monile-nav";
+import MobileNave from "./mobile-nav";
 import LargeScreenNav from "./pc-tablet-nav";
+import { DictionarySchema } from "@/types/dictionary";
 
 const Navigation = async ({ locale }: { locale: Locale }) => {
   const dictionary: DictionarySchema = await getDictionary(locale);
-
   return (
     <div
       className={`${styles.styleOne} top-50 sticky z-[999]  mt-0 w-screen  border-b`}

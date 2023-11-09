@@ -1,8 +1,8 @@
 import { Post } from "@/types/collection";
 import { ArrowLeft } from "lucide-react";
 import { getReadingTime, getRelativeDate } from "@/utils/helpers";
-import { DictionarySchema } from "@/dictionaries/schema";
 import { Locale, getDictionary } from "@/utils/get-dictionary";
+import { DictionarySchema } from "@/types/dictionary";
 
 interface PostContentProps {
   post: Post;
@@ -30,7 +30,7 @@ export default async function PostContent({
         </div>
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-neutral-200" />
-          {/* <div>{getReadingTime(post.body, locale)}</div> */}
+          <div>{getReadingTime(post.body, locale)}</div>
         </div>
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-neutral-200" />

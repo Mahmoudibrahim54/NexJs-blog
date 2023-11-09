@@ -17,13 +17,24 @@ export const generateStaticParams = async () => {
     });
 
     const params = categories?.data?.map((category) => {
-      return { category: category.slug as string };
+      return {
+        category: category.slug as string,
+        lang: "en",
+      };
     });
 
-    return params || [];
+    const localizedParams = categories?.data?.map((category) => {
+      return {
+        category: category.slug as string,
+        lang: "ar",
+      };
+    });
+
+    const allParams = params?.concat(localizedParams ?? []);
+    return allParams || [];
   } catch (error) {
     console.log(error);
-    throw new Error("Error fetching Categories");
+    throw new Error("Error st static params ");
   }
 };
 
@@ -32,6 +43,8 @@ const Page = async ({
 }: {
   params: { category: string; lang: Locale };
 }) => {
+  const locale = params.lang;
+
   const getCategoryData = async () => {
     try {
       const category = await client.items("category").readByQuery({
@@ -43,19 +56,43 @@ const Page = async ({
         fields: [
           "*",
           "posts.*",
-          "posts.category.id",
-          "posts.category.title",
-          "post.category.slug",
+          "posts.category.*",
+          "translations.*",
+          "posts.category.translations.*",
         ],
       });
-      return category?.data?.[0];
+
+      if (locale === "ar") {
+        return category?.data?.[0];
+      } else {
+        const fetchedCategory = category?.data?.[0];
+        const localizedCategory = {
+          ...fetchedCategory,
+          title: fetchedCategory.translations[0].title,
+          description: fetchedCategory.translations[0].description,
+          posts: fetchedCategory.posts.map((post: any) => {
+            return {
+              ...post,
+              title: post.translations[0].title,
+              description: post.translations[0].description,
+              body: post.translations[0].body,
+              category: {
+                ...post.category,
+                title: fetchedCategory.translations[0].title,
+              },
+            };
+          }),
+        };
+        return localizedCategory;
+      }
     } catch (error) {
       console.log(error);
-      throw new Error("Error fetching data");
+      throw new Error("Error fetching category");
     }
   };
 
   const category = await getCategoryData();
+  console.log(category);
 
   const typeCorrectedCategory = category as unknown as {
     id: string;
@@ -64,6 +101,8 @@ const Page = async ({
     description?: string;
     color: string;
     posts: Post[];
+    featured: boolean;
+    translations: { title: string; description: string };
   };
 
   if (!typeCorrectedCategory?.posts?.[0]?.id) {
@@ -73,7 +112,7 @@ const Page = async ({
   return (
     <PaddingContainer>
       <PostList
-        locale={params.lang}
+        locale={locale}
         posts={typeCorrectedCategory.posts}
         category={params.category}
       />

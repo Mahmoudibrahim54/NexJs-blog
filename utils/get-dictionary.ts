@@ -1,5 +1,4 @@
-import { DictionarySchema } from "@/dictionaries/schema";
-import { stringify } from "postcss";
+import { DictionarySchema } from "@/types/dictionary";
 
 export type Locale = "en" | "ar";
 
@@ -15,7 +14,7 @@ const dictionaries = {
 };
 
 export const getDictionary = async (locale: Locale) => {
-  if (!locale || locale == undefined) {
+  if (!locale || locale == undefined || (locale !== "en" && locale !== "ar")) {
     return dictionaries["ar"]();
   } else {
     return dictionaries[locale]();

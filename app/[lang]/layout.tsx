@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import Header from "@/components/navigation/header";
 import { Footer } from "@/components/navigation/footer";
 import Navigation from "@/components/navigation/navigation";
+import { Locale } from "@/utils/get-dictionary";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,14 +19,13 @@ export default function RootLayout({
   params: { lang },
 }: {
   children: React.ReactNode;
-  params: { lang: "ar" | "en" };
+  params: { lang: Locale };
 }) {
+  const appDir = lang === "ar" ? "rtl" : "ltr";
+
   return (
     <html lang={lang}>
-      <body
-        className={inter.className}
-        style={lang === "ar" ? { direction: "rtl" } : { direction: "ltr" }}
-      >
+      <body className={inter.className} style={{ direction: appDir }}>
         <Header locale={lang} />
         <Navigation locale={lang} />
         <div className="min-h-[calc(100vh-300px)] py-7 ">{children}</div>

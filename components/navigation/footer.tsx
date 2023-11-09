@@ -5,8 +5,8 @@ import siteConfig from "@/config/site";
 import { PaddingContainer } from "../layout/padding-container";
 import Link from "next/link";
 import { SocialLinks } from "../elements/social-links";
-import { DictionarySchema } from "@/dictionaries/schema";
 import { getDictionary } from "@/utils/get-dictionary";
+import { DictionarySchema } from "@/types/dictionary";
 
 export const Footer = async ({ locale }: { locale: "ar" | "en" }) => {
   const dictionary: DictionarySchema = await getDictionary(locale);

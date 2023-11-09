@@ -10,7 +10,9 @@ const config: Config = {
     extend: {
       colors: {
         "primary-color": "var(--primary-color)",
-        "secondary-color": "var(secondary-color)",
+        "secondary-color": "var(--secondary-color)",
+
+        "button-primary-color": "var(--button-primary-color)",
       },
     },
   },
