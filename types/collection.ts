@@ -8,8 +8,14 @@ export interface Post {
   body: string;
   date_created: string;
   date_updated: string;
-  file?: string;
-  type: "textOnly" | "videoOnly" | "textWithImage" | "textWithAudio";
+  media?: string;
+  type:
+    | "withImage"
+    | "withAudio"
+    | "withVideo"
+    | "textOnly"
+    | "videoOnly"
+    | "audioOnly";
   isDummy?: boolean;
 }
 export interface Category {
@@ -18,4 +24,5 @@ export interface Category {
   slug: string;
   description?: string;
   color: string;
+  posts: Post[];
 }

@@ -11,8 +11,13 @@ const config: Config = {
       colors: {
         "primary-color": "var(--primary-color)",
         "secondary-color": "var(--secondary-color)",
+        "button-secondary-color": "var(--button-secondary-color)",
 
         "button-primary-color": "var(--button-primary-color)",
+      },
+      fontFamily: {
+        "reem-kufi": ["var(--font-reem-kufi)"],
+        "noto-kufi": ["var(--font-noto-kufi)"],
       },
     },
   },

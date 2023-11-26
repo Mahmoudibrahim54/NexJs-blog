@@ -1,0 +1,5 @@
+.bgPattern {
+  background-image: url("../../../public/bg-image.png");
+  background-size: unset;
+  background-repeat: repeat-x;
+}

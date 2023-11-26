@@ -22,13 +22,13 @@ export const links: LinkType[] = [
   },
   {
     id: 4,
-    link: "records",
+    link: "/records",
     title: "records",
     icon: <CassetteTape size="30px" color="var(--button-primary-color)" />,
   },
   {
     id: 5,
-    link: "books",
+    link: "/books",
     title: "books",
     icon: <BookOpen size="30" color="var(--button-primary-color)" />,
   },

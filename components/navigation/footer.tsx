@@ -5,13 +5,15 @@ import siteConfig from "@/config/site";
 import { PaddingContainer } from "../layout/padding-container";
 import Link from "next/link";
 import { SocialLinks } from "../elements/social-links";
-import { getDictionary } from "@/utils/get-dictionary";
+import { getDictionary } from "@/lib/dictionary";
 import { DictionarySchema } from "@/types/dictionary";
 
 export const Footer = async ({ locale }: { locale: "ar" | "en" }) => {
   const dictionary: DictionarySchema = await getDictionary(locale);
   return (
-    <div className={` ${styles.styleOne} relative  mt-8 border-t py-8`}>
+    <div
+      className={` ${styles.islamicBgPattern} relative   w-screen border-t py-8`}
+    >
       <div
         className={`absolute inset-0 z-10 ${
           locale === "ar" ? "bg-gradient-to-br" : "bg-gradient-to-bl"
@@ -25,16 +27,22 @@ export const Footer = async ({ locale }: { locale: "ar" | "en" }) => {
       />
       <div className="relative z-20">
         <PaddingContainer>
-          <div className="text-white ">
-            <h2 className="text-3xl font-bold">{dictionary.footer.titleOne}</h2>
-            <h2 className="text-3xl font-bold">{dictionary.footer.titleTwo}</h2>
-            <p className="mt-2 max-w-md text-lg">
+          <div className=" text-neutral-100 ">
+            <div className="font-reem-kufi">
+              <h2 className="text-3xl font-extrabold">
+                {dictionary.footer.titleOne}
+              </h2>
+              <h2 className="text-4xl font-extrabold">
+                {dictionary.footer.titleTwo}
+              </h2>
+            </div>
+            <p className="mt-2 max-w-md font-noto-kufi text-lg">
               {dictionary.footer.description}
             </p>
           </div>
 
           {/*social and country section*/}
-          <div className="mt-6 flex flex-col flex-wrap justify-between gap-4 text-white md:flex-row ">
+          <div className="mt-6 flex flex-col flex-wrap justify-between gap-4 font-noto-kufi text-neutral-100 md:flex-row ">
             <div>
               <div className="text-lg font-medium">
                 {dictionary.footer.socialMedia}
@@ -54,8 +62,8 @@ export const Footer = async ({ locale }: { locale: "ar" | "en" }) => {
                 />
               </div>
             </div>
-            <div>
-              <div className="text-sm text-neutral-400">
+            <div className=" font-noto-kufi">
+              <div className="my-2 text-sm text-neutral-100">
                 {dictionary.footer.country}
               </div>
 
@@ -64,6 +72,7 @@ export const Footer = async ({ locale }: { locale: "ar" | "en" }) => {
                   className={`${icon.islamicIcon}`}
                   style={{
                     ["--icon-dim" as any]: "15px",
+                    ["--icon-color" as any]: "var(--primary-color)",
                   }}
                 />
                 {dictionary.footer.location}
@@ -72,7 +81,7 @@ export const Footer = async ({ locale }: { locale: "ar" | "en" }) => {
           </div>
 
           {/*bottom section*/}
-          <div className="mt-16 flex flex-wrap items-center  justify-between gap-4 border-t py-3 text-white ">
+          <div className="mt-16 flex flex-wrap items-center  justify-between gap-4 border-t py-3 font-noto-kufi text-neutral-100">
             <div className="text-sm">
               <Link
                 className="underline underline-offset-4"

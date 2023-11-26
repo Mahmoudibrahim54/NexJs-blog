@@ -1,4 +1,5 @@
 export interface DictionarySchema {
+  config: Config;
   header: Header;
   mainPage: MainPage;
   navigation: Navigation;
@@ -6,7 +7,9 @@ export interface DictionarySchema {
   ctaCard: CtaCard;
   footer: Footer;
 }
-
+export interface Config {
+  siteName: string;
+}
 export interface Buttons {
   readMore: string;
 }
@@ -40,10 +43,12 @@ export interface Header {
 
 export interface MainPage {
   mainPage: string;
+  sideNav: string;
 }
 
 export interface Navigation {
   [x: string]: Links;
+
   links: Links;
 }
 

@@ -16,7 +16,11 @@
 }
 
 :root {
-  --primary-color: #353738;
-  --secondary-color: #193043;
-  --button-primary-color: #898989;
+  --primary-color: #434344;
+  --secondary-color: #cd7e2b;
+  --link-color: #80b2c9;
+  --button-primary-color: #c6c9ca;
+  --button-secondary-color: #898989;
+
+  /* --button-secondary-color: #39515c; */
 }

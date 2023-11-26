@@ -1,4 +1,7 @@
 {
+  "config": {
+    "siteName": "الشيخ أسامة عبد العظيم"
+  },
   "header": {
     "textOne": "موقع الشيخ",
     "textTow": "أسامة عبد العظيم",
@@ -7,19 +10,21 @@
   },
 
   "mainPage": {
-    "mainPage": "الصفحة الرئيسية"
+    "mainPage": "الصفحة الرئيسية",
+    "sideNav": "الموضوعات"
   },
 
   "navigation": {
     "links": {
       "mainMenu": "القائمة الرئيسية",
       "subMenu": "القائمة الفرعية",
-      "articles": " فتاوى والمقالات",
+      "articles": " الفتاوى والمقالات",
       "videos": "فتاوى مرئية",
       "records": "فتاوى صوتية",
       "books": "كتب",
       "about": "عن الشيخ",
-      "featured": "اخترنا لك"
+      "featured": "مختارات",
+      "mainPage": "الصفحة الرئيسية"
     }
   },
 
@@ -32,7 +37,7 @@
     "placeholder": "ادخل بريدك الالكتروني",
     "subscriberTagTextOne": "انضم الى",
     "subscriberTagTextTwo": "مشارك",
-    "image": "b80d7d52-23f9-4f9e-992b-7fb549650ecb.webp"
+    "image": "204b9a00-9979-42fe-9556-7f454e57dccd.webp"
   },
 
   "footer": {

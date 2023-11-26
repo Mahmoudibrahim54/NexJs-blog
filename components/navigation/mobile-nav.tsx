@@ -7,7 +7,7 @@ import icon from "@/app/[lang]/styles//islamic-icon.module.css";
 
 import Link from "next/link";
 import { useState } from "react";
-import { Locale } from "@/utils/get-dictionary";
+import { Locale } from "@/lib/dictionary";
 import { DictionarySchema } from "@/types/dictionary";
 
 const MobileNave = ({
@@ -44,20 +44,26 @@ const MobileNave = ({
               color="var(--button-primary-color)"
               onClick={(e) => {
                 setNav(true);
-                e.stopPropagation();
               }}
             />
           )}
         </div>
       </div>
       {nav && (
-        <div className={`${styles.styleOne}  w-screen border-b`}>
+        <div className={`${styles.islamicBgPattern}  w-screen border-b`}>
           <div className="absolute inset-0 top-14 z-10 bg-gradient-to-br from-white/95 via-white/70 to-white/30" />
 
           <div className="absolute inset-0 top-14 z-10 bg-gradient-to-br from-black/95 via-black/70 to-black/30" />
-          <div className="relative z-20">
-            <div className="border-t bg-white bg-opacity-30 py-1 backdrop-blur-md  ">
-              <ul className=" flex h-screen w-screen flex-col items-start justify-start py-5">
+          <div className="relative z-20 ">
+            <div
+              className="border-t bg-white bg-opacity-30 py-1 backdrop-blur-md  "
+              onClick={() => {
+                setTimeout(() => {
+                  setNav(false);
+                }, 1000);
+              }}
+            >
+              <ul className=" ac flex h-screen w-screen flex-col items-start justify-start py-5">
                 {links.map(({ id, link, title }) => (
                   <li
                     key={id}
@@ -66,11 +72,7 @@ const MobileNave = ({
                     {isSubMenu === "NONE" && (
                       <Link
                         className="z-20 flex  w-full items-center justify-around gap-7 px-5"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setNav(!nav);
-                        }}
-                        href={`${locale}/${link}` || "/"}
+                        href={`${link}` || "/"}
                       >
                         <div
                           className={`${icon.islamicIcon}`}
@@ -83,7 +85,7 @@ const MobileNave = ({
                         </div>
                       </Link>
                     )}
-                    <div
+                    {/* <div
                       className="bordor- flex w-16 items-center justify-end border-s-4"
                       onClick={() => {
                         SetIsSubMenu(link);
@@ -92,7 +94,7 @@ const MobileNave = ({
                       {isSubMenu === "NONE" && (
                         <ChevronLeft strokeWidth="3px" size="30px" />
                       )}
-                    </div>
+                    </div> */}
 
                     {isSubMenu === link && <div className=""></div>}
                   </li>

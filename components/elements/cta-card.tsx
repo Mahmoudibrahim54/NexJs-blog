@@ -1,6 +1,6 @@
 import { DictionarySchema } from "@/types/dictionary";
-import { client } from "@/utils/directus";
-import { Locale, getDictionary } from "@/utils/get-dictionary";
+import { client } from "@/lib/directus";
+import { Locale, getDictionary } from "@/lib/dictionary";
 import { revalidateTag } from "next/cache";
 import Image from "next/image";
 
@@ -64,14 +64,14 @@ export default async function CTACard({ locale = "ar" }: { locale?: Locale }) {
             className="w-full rounded-md bg-white/80 px-3 py-2 text-base outline-none placeholder:text-sm focus:ring md:w-auto"
             placeholder={dictionary.ctaCard.placeholder}
           />
-          <button className="whitespace-nowrap rounded-md bg-primary-color px-3 py-2 text-neutral-200">
+          <button className="whitespace-nowrap rounded-md bg-primary-color px-3 py-2 font-semibold text-neutral-200">
             {dictionary.ctaCard.button}
           </button>
         </form>
         {/* subscribers */}
         <div className="mt-5 text-neutral-700">
           {dictionary.ctaCard.subscriberTagTextOne}{" "}
-          <span className="mx-2 rounded-md bg-neutral-700 px-2 py-1 text-sm text-neutral-100">
+          <span className="mx-2 rounded-md bg-primary-color px-2 py-1 text-sm font-semibold text-neutral-200">
             {subscribersCount}
           </span>
           {dictionary.ctaCard.subscriberTagTextTwo}{" "}

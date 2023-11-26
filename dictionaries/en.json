@@ -1,4 +1,7 @@
 {
+  "config": {
+    "siteName": "sheikh Osama AbdulAzim"
+  },
   "header": {
     "textOne": "Website Of ",
     "textTow": "sheikh Osama AbdulAzim",
@@ -6,7 +9,8 @@
   },
 
   "mainPage": {
-    "mainPage": "Main Page"
+    "mainPage": "Main Page",
+    "sideNav": "Tags"
   },
 
   "navigation": {
@@ -18,7 +22,8 @@
       "records": "Audio Fatwa",
       "books": "Books",
       "about": "About Al sheikh",
-      "featured": "Featured"
+      "featured": "Featured",
+      "mainPage": "Main Page"
     }
   },
 
@@ -31,7 +36,7 @@
     "placeholder": "Write Your Email",
     "subscriberTagTextOne": "Join",
     "subscriberTagTextTwo": "Subscriber",
-    "image": "c7f312a2-cb81-4879-955f-8b6254cb9959.webp"
+    "image": "8ff27185-59a6-48ec-b1c4-b5a4863a1d8f.webp"
   },
 
   "footer": {

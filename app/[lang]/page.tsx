@@ -1,15 +1,16 @@
 import { PaddingContainer } from "@/components/layout/padding-container";
-import PostCard from "@/components/posts/post-card";
 import PostList from "@/components/posts/post-lists";
 import CTACard from "@/components/elements/cta-card";
 import { notFound } from "next/navigation";
-import { client } from "@/utils/directus";
-import { Locale, getDictionary } from "@/utils/get-dictionary";
+import { client } from "@/lib/directus";
+import { Locale, getDictionary } from "@/lib/dictionary";
+import CategoryGrid from "@/components/category/category-grid";
+import PostTitlesList from "@/components/posts/post-titles-list";
 
 export default async function Home({ params }: { params: { lang: Locale } }) {
   const locale = params.lang;
 
-  const dictionary = getDictionary(locale);
+  const dictionary = await getDictionary(locale);
 
   const getCategoryData = async () => {
     try {
@@ -30,18 +31,20 @@ export default async function Home({ params }: { params: { lang: Locale } }) {
         const localizedData = fetchedCategories?.map((category) => {
           return {
             ...category,
-            title: category?.translations[0].title,
-            description: category?.translations[0].description,
+            title: category?.translations?.[0].title,
+            description: category?.translations?.[0]?.description,
             posts: category?.posts?.map((post: any) => {
               return {
                 ...post,
-                title: post.translations[0].title,
-                description: post.translations[0].description,
-                body: post.translations[0].body,
+                title: post?.translations?.[0]?.title,
+                description: post?.translations?.[0]?.description,
+                body: post?.translations?.[0]?.body,
+                featured: post?.translations?.[0]?.featured,
+
                 category: {
                   ...post.category,
-                  title: post.category.translations[0].title,
-                  description: post.category.translations[0]?.description,
+                  title: post?.category?.translations?.[0]?.title,
+                  description: post?.category?.translations?.[0]?.description,
                 },
               };
             }),
@@ -57,44 +60,84 @@ export default async function Home({ params }: { params: { lang: Locale } }) {
   };
 
   const categoriesPosts = await getCategoryData();
-  console.log(categoriesPosts);
 
-  if (categoriesPosts) {
+  if (!categoriesPosts) {
     notFound();
   }
-  const featuredPosts = (categoriesPosts as any)?.map(
-    ({ posts }: { posts: any }) => {
+  const featuredPosts = (categoriesPosts as any)
+    ?.map(({ posts }: { posts: any }) => {
       return posts?.filter((post: any) => post.featured);
-    },
-  );
+    })
+    .flat();
+
   return (
     <PaddingContainer>
-      <main>
-        {featuredPosts?.length > 0 && (
-          <div>
-            <PostList
+      <main className="font-noto-kufi">
+        <div className="flex w-full">
+          {featuredPosts?.length > 0 && (
+            <div className="me-5 w-full">
+              <PostTitlesList
+                locale={locale}
+                category={"featured"}
+                posts={featuredPosts}
+                layout="list"
+                dictionary={dictionary}
+              />
+            </div>
+          )}
+          <div className="me-5 h-full w-full">
+            <CategoryGrid
               locale={locale}
-              category={"featured"}
-              posts={featuredPosts}
+              categories={categoriesPosts}
+              layout="mainPage"
+              dictionary={dictionary}
             />
-
-            <CTACard locale={locale} />
           </div>
-        )}
-        {(categoriesPosts as any)?.map?.((category: any) => {
-          if (category?.posts?.length > 0) {
-            return (
-              <div key={category.id}>
-                <PostCard locale={locale} post={category.posts[0]} />
-                <PostList
-                  locale={locale}
-                  category={category?.slug}
-                  posts={category.posts}
-                />
-              </div>
-            );
-          }
-        })}
+        </div>
+
+        <div className="my-7 block">
+          <CTACard locale={locale} />
+        </div>
+        <div className="flex w-full ">
+          <div className="me-5 w-full">
+            {(categoriesPosts as any)?.map?.((category: any, idx: number) => {
+              if (category?.posts?.length > 0 && idx % 2 === 0 && idx > 0) {
+                const mainPagePosts = category.posts.filter(
+                  (post: any, idx: number) => idx <= 7,
+                );
+                return (
+                  <PostTitlesList
+                    key={category?.id}
+                    locale={locale}
+                    category={category?.slug}
+                    posts={mainPagePosts}
+                    layout="list"
+                    dictionary={dictionary}
+                  />
+                );
+              }
+            })}
+          </div>
+          <div className="ms-5 w-full">
+            {(categoriesPosts as any)?.map?.((category: any, idx: number) => {
+              if (category?.posts?.length > 0 && idx % 2 != 0) {
+                const mainPagePosts = category.posts.filter(
+                  (post: any, idx: number) => idx <= 7,
+                );
+                return (
+                  <PostTitlesList
+                    key={category?.id}
+                    locale={locale}
+                    category={category?.slug}
+                    posts={mainPagePosts}
+                    layout="mainPage"
+                    dictionary={dictionary}
+                  />
+                );
+              }
+            })}
+          </div>
+        </div>
       </main>
     </PaddingContainer>
   );

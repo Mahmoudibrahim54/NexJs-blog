@@ -29,7 +29,7 @@ const PostBody = ({ body }: { body: string }) => {
     return parse(body, options);
   };
 
-  return <div className="rich-text">{getParsedHTML(body)}</div>;
+  return <div className="rich-text font-noto-kufi">{getParsedHTML(body)}</div>;
 };
 
 export default PostBody;
