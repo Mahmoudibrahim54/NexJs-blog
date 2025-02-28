@@ -1,42 +1,53 @@
-import { LinkType } from "@/types/links";
-import { BookOpen, CassetteTape, ScrollText, User2, Video } from "lucide-react";
+import { NavLinks } from "@/types/links";
 
-export const links: LinkType[] = [
-  {
+import {
+  Home,
+  Feed,
+  Videocam,
+  GraphicEq,
+  Person,
+  CollectionsBookmark,
+} from "@mui/icons-material";
+
+const fontSizeOne = "35px";
+const color = " var(--button-primary-color)";
+
+export const links: NavLinks = {
+  mainPage: {
     id: 1,
     link: "/",
     title: "mainPage",
-    mobileOnly: true,
+    icon: <Home sx={{ color: color, fontSize: fontSizeOne }} />,
   },
-  {
+  articles: {
     id: 2,
     link: "/articles",
     title: "articles",
-    icon: <ScrollText size="30" color="var(--button-primary-color)" />,
+    icon: <Feed sx={{ color: color, fontSize: fontSizeOne }} />,
   },
-  {
+  videos: {
     id: 3,
-    link: "/video",
+    link: "/videos",
     title: "videos",
-    icon: <Video size="30px" color="var(--button-primary-color)" />,
+    icon: <Videocam sx={{ color: color, fontSize: fontSizeOne }} />,
   },
-  {
+  records: {
     id: 4,
     link: "/records",
     title: "records",
-    icon: <CassetteTape size="30px" color="var(--button-primary-color)" />,
+    icon: <GraphicEq sx={{ color: color, fontSize: fontSizeOne }} />,
   },
-  {
+  books: {
     id: 5,
     link: "/books",
     title: "books",
-    icon: <BookOpen size="30" color="var(--button-primary-color)" />,
+    icon: <CollectionsBookmark sx={{ color: color, fontSize: fontSizeOne }} />,
   },
 
-  {
+  about: {
     id: 6,
     link: "/about",
     title: "about",
-    icon: <User2 size="30" color="var(--button-primary-color)" />,
+    icon: <Person sx={{ color: color, fontSize: fontSizeOne }} />,
   },
-];
+};

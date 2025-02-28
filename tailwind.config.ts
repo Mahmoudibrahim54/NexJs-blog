@@ -8,10 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        height: "min-height max-height",
+      },
       colors: {
         "primary-color": "var(--primary-color)",
         "secondary-color": "var(--secondary-color)",
         "button-secondary-color": "var(--button-secondary-color)",
+        "link-color": "var(--link-color)",
 
         "button-primary-color": "var(--button-primary-color)",
       },

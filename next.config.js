@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  compress: true,
   images: {
     remotePatterns: [
       {
@@ -19,6 +20,17 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  headers: () => [
+    {
+      source: "/:subcategory*",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "no-store",
+        },
+      ],
+    },
+  ],
 };
 
 module.exports = nextConfig;

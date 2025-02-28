@@ -1,18 +1,23 @@
 import { Post } from "@/types/collection";
 import PostContent from "./post-content";
 import Image from "next/image";
-import { Locale } from "@/lib/dictionary";
-import { Category } from "../../types/collection";
+import { DictionarySchema, Locale } from "@/types/dictionary";
 
 interface PostHeroProps {
   post: Post;
   locale: Locale;
+  dictionary: DictionarySchema;
 }
 
-const PostHero = ({ post, locale }: PostHeroProps) => {
+const PostHero = ({ post, locale, dictionary }: PostHeroProps) => {
   return (
     <>
-      <PostContent locale={locale} post={post} isPostPage />
+      <PostContent
+        locale={locale}
+        post={post}
+        isPostPage
+        dictionary={dictionary}
+      />
       <section>
         {post.type === "withImage" && (
           <Image

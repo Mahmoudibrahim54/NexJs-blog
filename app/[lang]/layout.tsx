@@ -1,13 +1,15 @@
 import "./globals.css";
-import bgPattern from "./styles/islamic-bg-pattern.module.css";
+import bgPattern from "@/app/[lang]/styles/islamic-bg-pattern.module.css";
 import Header from "@/components/navigation/header";
 import { Footer } from "@/components/navigation/footer";
-import Navigation from "@/components/navigation/navigation";
-import { Locale, getDictionary } from "@/lib/dictionary";
+import { getDictionary } from "@/lib/dictionary";
 import siteConfig from "@/config/site";
 import localFont from "next/font/local";
 import SideNav from "@/components/navigation/side-nav";
-import PathLink from "@/components/navigation/path-link";
+import { getAllCategories } from "@/lib/api/get-data";
+import { Category } from "@/types/collection";
+import { i18n } from "@/i81n.config";
+import { Lang } from "@/types/dictionary";
 
 const notoKufiArabic = localFont({
   src: "../../public/fonts/NotoKufiArabic-VariableFont_wght.woff2",
@@ -24,7 +26,7 @@ export const generateMetadata = async ({
   params: { lang: string };
 }) => {
   // Get the dictionary based on Lang
-  const dictionary = await getDictionary(lang as Locale);
+  const dictionary = await getDictionary(lang as Lang);
 
   return {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL as string),
@@ -74,11 +76,14 @@ export default async function RootLaout({
   params: { lang },
 }: {
   children: React.ReactNode;
-  params: { lang: Locale };
+  params: { lang: Lang };
 }) {
-  const dictionary = await getDictionary(lang as Locale);
+  const dictionary = await getDictionary(lang as Lang);
+  const categories = await getAllCategories(lang as Lang);
 
-  const appDir = lang === "ar" ? "rtl" : "ltr";
+  const appDir = i18n.locales[lang].langDir ?? i18n.defaultLocale.langDir;
+
+  const locale = { lang: lang, langDir: appDir };
 
   return (
     <html lang={lang}>
@@ -88,9 +93,13 @@ export default async function RootLaout({
           direction: appDir,
         }}
       >
-        <Header locale={lang} />
-        <Navigation locale={lang} />
-        <div className={` ${bgPattern.bgPattern} relative  w-screen`}>
+        <Header
+          locale={locale}
+          dictionary={dictionary}
+          categories={categories as Category[]}
+        />
+
+        <div className={` ${bgPattern.bgPattern}   w-screen`}>
           <div
             className={`absolute inset-0 h-full w-screen bg-gradient-to-br from-white/40 via-white/30 to-white/20`}
           />
@@ -101,15 +110,13 @@ export default async function RootLaout({
           <div className={"h-full backdrop-opacity-100"}>
             {/* <PathLink dictionary={dictionary} /> */}
 
-            <div className="flex h-full">
-              <div className=" h-full min-h-[calc(100vh-300px)] w-full py-7">
-                {children}
-              </div>
-              <SideNav locale={lang} />
+            <div className="flex h-full w-full flex-wrap items-start justify-center lg:flex-nowrap">
+              <div className=" h-full  w-full py-7">{children}</div>
+              <SideNav locale={locale} />
             </div>
           </div>
         </div>
-        <Footer locale={lang} />
+        <Footer locale={locale} />
       </body>
     </html>
   );

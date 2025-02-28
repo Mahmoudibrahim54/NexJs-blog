@@ -1,6 +1,4 @@
-import { DictionarySchema } from "@/types/dictionary";
-
-export type Locale = "en" | "ar";
+import { DictionarySchema, Lang } from "@/types/dictionary";
 
 const dictionaries = {
   ar: () =>
@@ -13,10 +11,10 @@ const dictionaries = {
     ),
 };
 
-export const getDictionary = async (locale: Locale) => {
-  if (!locale || locale == undefined || (locale !== "en" && locale !== "ar")) {
+export const getDictionary = async (lang: Lang) => {
+  if (!lang || lang == undefined || (lang !== "en" && lang !== "ar")) {
     return dictionaries["ar"]();
   } else {
-    return dictionaries[locale]();
+    return dictionaries[lang]();
   }
 };

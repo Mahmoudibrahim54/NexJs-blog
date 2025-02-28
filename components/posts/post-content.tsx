@@ -1,10 +1,7 @@
-"use client";
-
 import { Post } from "@/types/collection";
-import { ArrowLeft } from "lucide-react";
+import { West, East } from "@mui/icons-material";
 import { getReadingTime, getRelativeDate } from "@/lib/helpers";
-import { Locale, getDictionary } from "@/lib/dictionary";
-import { DictionarySchema } from "@/types/dictionary";
+import { DictionarySchema, Locale } from "@/types/dictionary";
 
 interface PostContentProps {
   post: Post;
@@ -21,10 +18,12 @@ export default function PostContent({
   dictionary,
   layout,
 }: PostContentProps) {
+  const { lang, langDir } = locale;
+
   return (
     <section
-      className={`flex ${
-        layout === "horizontal" ? "h-[300px]" : "h-[230px]"
+      className={`flex h-full${
+        layout === "horizontal" ? "md:h-[300px]" : "md:h-[230px]"
       } flex-col justify-between space-y-3 font-noto-kufi`}
     >
       {/*Tags */}
@@ -38,11 +37,11 @@ export default function PostContent({
         </div>
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-neutral-200" />
-          <div>{getReadingTime(post?.body, locale)}</div>
+          <div>{getReadingTime(post?.body, lang)}</div>
         </div>
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-neutral-200" />
-          <div>{getRelativeDate(post?.date_created, locale)}</div>
+          <div>{getRelativeDate(post?.date_created, lang)}</div>
         </div>
       </div>
       {/* Title */}
@@ -65,7 +64,18 @@ export default function PostContent({
       </div>
       {!isPostPage && (
         <div className="text-md flex items-center justify-end gap-2 pt-3 text-secondary-color">
-          {dictionary?.buttons?.readMore} <ArrowLeft size="14" />
+          {dictionary?.buttons?.readMore}{" "}
+          {langDir === "rtl" ? (
+            <West
+              fontSize="medium"
+              sx={{ color: "var(--button-primary-color)" }}
+            />
+          ) : (
+            <East
+              fontSize="medium"
+              sx={{ color: "var(--button-primary-color)" }}
+            />
+          )}
         </div>
       )}
     </section>

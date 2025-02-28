@@ -1,80 +1,69 @@
 "use client";
 
-import { Category } from "@/types/collection";
-import { useState, useEffect } from "react";
-import { Locale } from "@/lib/dictionary";
-import TitleBg from "../layout/title-bg";
-import Link from "next/link";
-import styles from "@/app/[lang]/styles//islamic-icon.module.css";
+import { Category, Post } from "@/types/collection";
+import { useState } from "react";
 import PostList from "../posts/post-lists";
-import { DictionarySchema } from "@/types/dictionary";
+import { DictionarySchema, Locale } from "@/types/dictionary";
 import PostTitlesList from "../posts/post-titles-list";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const CategoryGrid = ({
   categories,
   locale,
   layout,
   dictionary,
+  categoryData,
+  currentSubcategory = { slug: categories[0]?.slug },
+  totalRecordsNum,
 }: {
   categories: Category[];
   locale: Locale;
   layout?: "vertical" | "horizontal" | "mainPage" | "categoryList";
   dictionary: DictionarySchema;
+  categoryData: { slug: string; title: string };
+  currentSubcategory?: { slug: string };
+  totalRecordsNum: number;
 }) => {
-  const [activeTab, setActiveTab] = useState(categories[0]);
-  const [hydrated, setHydrated] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams().get("page");
 
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-  if (!hydrated) {
-    // Returns null on first render, so the client and server match
-    return null;
-  }
+  // const [hydrated, setHydrated] = useState(false);
 
-  console.log(categories?.[1]);
+  // useEffect(() => {
+  //   setHydrated(true);
+  // }, []);
+  // if (!hydrated) {
+  //   // Returns null on first render, so the client and server match
+  //   return null;
+  // }
 
+  const [activeTab, setActiveTab] = useState(
+    categories.find(
+      (subcategory) => subcategory.slug === currentSubcategory.slug,
+    ) ||
+      categories?.[0] ||
+      [],
+  );
   return (
     <div className="flex h-full min-h-[300px] w-full flex-col rounded-md">
-      <div
-        className={`text-md border-fourth-color "font-reem-kufi text-2xl" mb-2 flex h-10  w-auto flex-col items-start  justify-center border-b-2`}
-      >
-        <TitleBg
-          tw={{
-            bg: "rounded-t-md h-[12] w-auto h-full",
-            overlay: "rounded-t-md w-64 h-[12]  w-auto h-full",
-          }}
-        >
-          <Link
-            href={`/${
-              categories?.[0]?.posts?.[0]?.category?.slug
-                ? categories?.[0]?.posts?.[0]?.category?.slug
-                : "/"
-            }  `}
-            className=" flex  h-full flex-row items-center gap-5 rounded-t-md px-3 font-reem-kufi text-neutral-100"
-          >
-            <div
-              className={`${styles.islamicIcon}`}
-              style={{
-                ["--icon-dim" as any]: `${
-                  layout === "mainPage" ? "15px" : "20px"
-                }`,
-                ["--icon-color" as any]: "var(--secondary-color)",
-              }}
-            />
-            <div className="font-semibold">
-              {categories?.[2]?.posts?.[0]?.category?.title}
-            </div>
-          </Link>
-        </TitleBg>
-      </div>
-      <div className=" border-b-md flex h-auto w-full items-center justify-center gap-2 rounded-t-md bg-white p-2">
+      <div className=" border-b-md flex h-auto w-full flex-wrap items-center justify-center gap-2 rounded-t-md bg-white p-2">
         {categories.map((category) => {
           return (
             <div key={category.slug}>
               <button
-                className="rounded-t-md bg-primary-color px-3 py-3 font-noto-kufi text-button-primary-color"
-                onClick={() => setActiveTab(category)}
+                className={`rounded-md hover:bg-secondary-color ${
+                  category.slug === activeTab.slug
+                    ? "bg-secondary-color"
+                    : "bg-primary-color"
+                } px-3 py-3 font-noto-kufi font-semibold text-neutral-100 md:rounded-b-none`}
+                onClick={() => {
+                  setActiveTab(category);
+                  layout === "categoryList" &&
+                    router.push(
+                      `/${categoryData.slug}/${category.slug}?page=1`,
+                    );
+                  router.refresh();
+                }}
               >
                 {category.title}
               </button>
@@ -84,12 +73,7 @@ const CategoryGrid = ({
       </div>
       {layout === "mainPage" ? (
         <div>
-          <PostTitlesList
-            locale={locale}
-            posts={activeTab?.posts}
-            layout="categoryList"
-            dictionary={dictionary}
-          />
+          <PostTitlesList locale={locale} posts={activeTab?.posts} />
         </div>
       ) : (
         <div className="h-full">
@@ -98,6 +82,7 @@ const CategoryGrid = ({
             posts={activeTab?.posts}
             layout="categoryList"
             dictionary={dictionary}
+            totalRecordsNum={10}
           />
         </div>
       )}

@@ -1,6 +1,4 @@
-import Link from "next/link";
 import styles from "@/app/[lang]/styles/islamic-icon.module.css";
-import { ChevronsRight } from "lucide-react";
 
 const NotFound = () => {
   return (

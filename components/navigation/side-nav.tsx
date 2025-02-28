@@ -1,36 +1,42 @@
-import { Locale, getDictionary } from "@/lib/dictionary";
-import TitleBg from "../layout/title-bg";
-import styles from "@/app/[lang]/styles/islamic-icon.module.css";
+import {  getDictionary } from "@/lib/dictionary";
+import ListTitleBg from "../layout/title-bg";
+import CategoryGrid from "../category/category-grid";
+import { Locale } from "@/types/dictionary";
 
 const SideNav = async ({ locale }: { locale: Locale }) => {
-  const dictionary = await getDictionary(locale as Locale);
+
+  const { lang } = locale;
+
+  const dictionary = await getDictionary(lang);
 
   return (
-    <div className="my-9 me-10 hidden h-[1000px] w-[400px] lg:block">
-      <div
-        className={`"text-md border-fourth-color mb-2 flex h-10  w-auto  flex-col items-start justify-center border-b-2`}
+    <div className="mx-auto h-[1000px] w-full  max-w-screen-2xl px-3  md:px-8 lg:my-9 lg:me-10 lg:w-[350px] lg:px-0">
+      <ListTitleBg
+        iconDim={"15px"}
+        title={dictionary.mainPage.sideNav}
+        tw={{
+          bg: "rounded-t-md h-[12] w-auto h-full",
+          overlay: "rounded-t-md  h-[12]  w-auto h-full",
+        }}
+      />
+      <ListTitleBg
+        isBg={true}
+        tw={{
+          bg: "rounded-t-md h-[900px] ",
+          overlay: "rounded-t-md h-[900px] ",
+        }}
       >
-        <TitleBg
-          tw={{
-            bg: "rounded-t-md h-10 w-auto",
-            overlay: "rounded-t-md w-64 h-10 w-auto",
+        {/* <CategoryGrid
+          categoryData={{
+            slug: "/",
+            title: dictionary.navigation.links.allCategoriesSelection,
           }}
-        >
-          <div className=" flex h-10  flex-row items-center gap-5 rounded-t-md px-5 text-neutral-100">
-            <div
-              className={`${styles.islamicIcon}`}
-              style={{
-                ["--icon-dim" as any]: "15px",
-                ["--icon-color" as any]: "var(--secondary-color)",
-              }}
-            />
-            <div className="text-md font-reem-kufi font-semibold">
-              {dictionary.mainPage.sideNav}
-            </div>
-          </div>
-        </TitleBg>
-      </div>
-      <div className="h-[900px] rounded-b-md bg-white font-noto-kufi shadow-md"></div>
+          locale={locale}
+          categories={categoriesPosts}
+          layout="mainPage"
+          dictionary={dictionary}
+        /> */}
+      </ListTitleBg>
     </div>
   );
 };

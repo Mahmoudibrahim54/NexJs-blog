@@ -1,26 +1,43 @@
-import { Facebook, Linkedin, Twitter, Youtube } from "lucide-react";
+import {
+  Facebook,
+  LinkedIn,
+  Twitter,
+  YouTube,
+  WhatsApp,
+  Telegram,
+} from "@mui/icons-material";
 import Link from "next/link";
 
 export const SocialLinks = ({
   platform,
   link,
+  fontSize,
   isShareURL,
+  iconColor,
 }: {
   platform: string;
   link: string;
+  fontSize: "small" | "medium" | "large";
   isShareURL?: boolean;
+  iconColor: string;
 }) => {
   const getIcon = (platform: string) => {
     switch (platform) {
       case "facebook":
-        return <Facebook size="20" />;
+        return <Facebook fontSize={fontSize} sx={{ color: iconColor }} />;
       case "twitter":
-        return <Twitter size="20" />;
+        return <Twitter fontSize={fontSize} sx={{ color: iconColor }} />;
       case "youtube":
-        return <Youtube size="20" />;
+        return <YouTube fontSize={fontSize} sx={{ color: iconColor }} />;
 
       case "linkedin":
-        return <Linkedin size="20" />;
+        return <LinkedIn fontSize={fontSize} sx={{ color: iconColor }} />;
+
+      case "whatsapp":
+        return <WhatsApp fontSize={fontSize} sx={{ color: iconColor }} />;
+
+      case "telegram":
+        return <Telegram fontSize={fontSize} sx={{ color: iconColor }} />;
     }
   };
   return (
@@ -28,7 +45,7 @@ export const SocialLinks = ({
       <div
         className={`${
           isShareURL
-            ? "rounded-md bg-slate-200 px-3  py-2 text-neutral-600 transition-colors duration-100 ease-in-out hover:bg-neutral-800 hover:text-neutral-600"
+            ? " flex h-11 w-11 items-center justify-center rounded-full bg-neutral-300 hover:bg-secondary-color hover:text-neutral-300 md:h-14 md:w-14"
             : ""
         }`}
       >

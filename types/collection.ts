@@ -3,6 +3,7 @@ export interface Post {
   title: string;
   description: string;
   category: Category;
+  subcategory: Subcategory;
   slug: string;
   image?: string;
   body: string;
@@ -18,6 +19,7 @@ export interface Post {
     | "audioOnly";
   isDummy?: boolean;
 }
+
 export interface Category {
   id: string;
   title: string;
@@ -25,4 +27,17 @@ export interface Category {
   description?: string;
   color: string;
   posts: Post[];
+  subcategories: Subcategory[];
+  featured: boolean;
+  translations: { title: string; description: string };
+}
+export interface Subcategory {
+  id: string;
+  title: string;
+  slug: string;
+  description?: string;
+  color: string;
+  posts: Post[];
+  featured: boolean;
+  translations: { title: string; description: string };
 }

@@ -1,3 +1,11 @@
+export type Locale = {
+  lang: Lang;
+  langDir?: LangDir;
+};
+
+export type Lang = "en" | "ar";
+export type LangDir = "rtl" | "ltr";
+
 export interface DictionarySchema {
   config: Config;
   header: Header;
@@ -6,6 +14,7 @@ export interface DictionarySchema {
   buttons: Buttons;
   ctaCard: CtaCard;
   footer: Footer;
+  socialLinks: SocialLinks;
 }
 export interface Config {
   siteName: string;
@@ -62,4 +71,11 @@ export interface Links {
   books: string;
   about: string;
   featured: string;
+  allCategoriesSelection: string;
+  menu: string;
+}
+
+export interface SocialLinks {
+  shareLarge: string;
+  shareMini: string;
 }

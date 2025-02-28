@@ -1,9 +1,14 @@
+import { Locale } from "./types/dictionary";
+
 interface I18nConfig {
-  defaultLocale: string;
-  locales: string[];
+  defaultLocale: Locale;
+  locales: { [x: string]: Locale };
 }
 
 export const i18n: I18nConfig = {
-  defaultLocale: "ar",
-  locales: ["ar", "en"],
+  defaultLocale: { lang: "ar", langDir: "rtl" },
+  locales: {
+    ar: { lang: "ar", langDir: "rtl" },
+    en: { lang: "en", langDir: "ltr" },
+  },
 };

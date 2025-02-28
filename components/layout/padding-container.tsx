@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
 
 export const PaddingContainer = ({ children }: { children: ReactNode }) => {
-  return (
-    <div className="mx-auto h-full w-full max-w-7xl px-8 py-3">{children}</div>
-  );
+  return <div className=" h-full w-full  px-3 py-7 md:px-8">{children}</div>;
 };

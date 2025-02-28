@@ -1,16 +1,40 @@
-import { Locale, getDictionary } from "@/lib/dictionary";
+"use client";
+
 import MobileNave from "./mobile-nav";
 import LargeScreenNav from "./pc-tablet-nav";
-import { DictionarySchema } from "@/types/dictionary";
-import TitleBg from "../layout/title-bg";
+import { DictionarySchema, Locale } from "@/types/dictionary";
+import ListTitleBg from "../layout/title-bg";
+import { Category } from "@/types/collection";
 
-const Navigation = async ({ locale }: { locale: Locale }) => {
-  const dictionary: DictionarySchema = await getDictionary(locale);
+const Navigation = ({
+  locale,
+  categories,
+  dictionary,
+  isVisible,
+}: {
+  locale: Locale;
+  categories: Category[];
+  dictionary: DictionarySchema;
+  isVisible: boolean;
+}) => {
   return (
-    <TitleBg tw={{ bg: "sticky top-0 z-[999] w-screen" }}>
-      <MobileNave locale={locale} dictionary={dictionary} />
-      <LargeScreenNav locale={locale} dictionary={dictionary.navigation} />
-    </TitleBg>
+    <div>
+      <ListTitleBg isBg={true} tw={{ main: `z-50` }}>
+        <MobileNave
+          locale={locale}
+          dictionary={dictionary}
+          categories={categories as Category[]}
+          isVisible={isVisible}
+        />
+      </ListTitleBg>
+      <ListTitleBg isBg={true} tw={{ main: `z-50 ` }}>
+        <LargeScreenNav
+          dictionary={dictionary.navigation}
+          categories={categories as Category[]}
+          isVisible={isVisible}
+        />
+      </ListTitleBg>
+    </div>
   );
 };
 

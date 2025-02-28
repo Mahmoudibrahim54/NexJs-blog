@@ -2,7 +2,7 @@
 
 import { ImageResponse } from "next/server";
 import siteConfig from "@/config/site";
-import { Lang } from "@/types/dictionary";
+import { Lang } from "@/types/dictionary"
 import { getCategoryData } from "@/lib/api/get-data";
 
 export const size = {
@@ -13,9 +13,9 @@ export const alt = siteConfig.siteName;
 export const contentType = "image/png";
 
 export default async function og({
-  params: { category, lang },
+  params: { category, subcategory, lang },
 }: {
-  params: { category: string; lang: string };
+  params: { category: string; subcategory: string; lang: string };
 }) {
   const getArabicParagraph = (text: string | undefined) => {
     if (lang === "ar" && text) {
@@ -23,7 +23,7 @@ export default async function og({
     } else return text;
   };
   // Get Data from CMS
-  const categoryData = await getCategoryData(category, lang as Lang,1,1);
+  const categoryData = await getCategoryData(category, lang as Lang, 1, 1);
 
   const arabicSansSemibold = fetch(
     new URL(`${process.env.NEXT_PUBLIC_SITE_URL}/NotoSansArabic-SemiBold.ttf`),

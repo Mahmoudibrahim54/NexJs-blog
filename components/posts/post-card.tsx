@@ -3,12 +3,11 @@ import { Post } from "@/types/collection";
 import Image from "next/image";
 import Link from "next/link";
 import PostContent from "./post-content";
-import { Locale } from "@/lib/dictionary";
 import AudioViewer from "./audio-viewer";
 import VideoViewer from "./video-viewer";
-import { DictionarySchema } from "@/types/dictionary";
+import { DictionarySchema, Locale } from "@/types/dictionary";
 import styles from "@/app/[lang]/styles/islamic-icon.module.css";
-import TitleBg from "../layout/title-bg";
+import ListTitleBg from "../layout/title-bg";
 
 interface PostProps {
   post: Post;
@@ -25,12 +24,10 @@ export default function PostCard({
   locale,
   dictionary,
 }: PostProps) {
-  console.log(layout);
-
   return (
     <Link
       className={`my-7 w-full rounded-md  border-2 bg-white p-3 font-noto-kufi  ${
-        layout !== "horizontal" && "h-[520px]"
+        layout !== "horizontal" && "md:h-[520px]"
       }
        @container${
          layout === "vertical" ||
@@ -39,7 +36,10 @@ export default function PostCard({
            ? "grid grid-cols-1"
            : " grid grid-cols-1 items-center gap-10 md:grid-cols-2 "
        }`}
-      href={`/${post?.category?.slug}/post/${post?.slug}` || "/"}
+      href={
+        `/${post?.category?.slug}/${post?.subcategory?.slug}/post/${post?.slug}` ||
+        "/"
+      }
     >
       <div>
         {post?.type === "withImage" && layout !== "mainPage" && (
@@ -88,7 +88,7 @@ export default function PostCard({
           post?.type !== "withVideo" &&
           post?.type !== "withAudio" &&
           layout !== "mainPage" && (
-            <TitleBg>
+            <ListTitleBg>
               <div className="flex h-[250px] items-center justify-center ">
                 <div
                   className={`${styles.islamicIcon}`}
@@ -98,11 +98,11 @@ export default function PostCard({
                   }}
                 />
               </div>
-            </TitleBg>
+            </ListTitleBg>
           )}
       </div>
 
-      <div className="max-e h-full p-3">
+      <div className=" h-full p-3">
         <PostContent
           post={post}
           locale={locale}

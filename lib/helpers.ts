@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { Locale } from "./dictionary";
+import { Lang } from "@/types/dictionary";
 
 export const getReadingTime = (text: string, locale: string) => {
   if (text?.length) {
@@ -17,7 +17,9 @@ export const getReadingTime = (text: string, locale: string) => {
   }
 };
 
-export const getRelativeDate = (date: string, locale: Locale) => {
-  if (date) return DateTime.fromISO(date).setLocale(locale).toRelative();
+export const getRelativeDate = (date: string, locale: Lang) => {
+  const DateLocale = locale === "ar" ? "ar-EG" : "en-US";
+
+  if (date) return DateTime.fromISO(date).setLocale(DateLocale).toRelative();
   else return "";
 };

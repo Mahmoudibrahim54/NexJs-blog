@@ -23,7 +23,9 @@
       "books": "Books",
       "about": "About Al sheikh",
       "featured": "Featured",
-      "mainPage": "Main Page"
+      "mainPage": "Main Page",
+      "allCategoriesSelection": "Fatwa Varieties",
+      "menu": "Menu"
     }
   },
 
@@ -48,5 +50,10 @@
     "creatorText": "Developed By",
     "country": "Country",
     "location": "Arab Republic of Egypt"
+  },
+
+  "socialLinks": {
+    "shareLarge": "Share This Content",
+    "shareMini": "Share"
   }
 }

@@ -24,7 +24,9 @@
       "books": "كتب",
       "about": "عن الشيخ",
       "featured": "مختارات",
-      "mainPage": "الصفحة الرئيسية"
+      "mainPage": "الصفحة الرئيسية",
+      "allCategoriesSelection": "فتاوى متنوعة",
+      "menu": "القائمة"
     }
   },
 
@@ -49,5 +51,10 @@
     "creatorText": "تم تطوير الموقع من خلال",
     "country": "البلد",
     "location": "جمهورية مصر العربية"
+  },
+
+  "socialLinks": {
+    "shareLarge": "شارك هذا المحتوى",
+    "shareMini": "شارك"
   }
 }
